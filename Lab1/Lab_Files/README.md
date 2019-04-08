@@ -17,8 +17,10 @@ This README documents whatever steps are necessary to get your simulation up and
 * ## Lists all the testbench files that need to be compiled and writes into tb.f
 * $scripts/lister.pl -top_rtl_cfg $verif/tb/tb.list -sim_file_list tb.f
 * ## Creates libraries (needed only once)
+* ## Go to scr folder and ther run:
 * ./do.pl -L
 * ## Compiles rtl, Compiles testbench, optimises, and run the simulation with the binaary file "add.bin"
+* ## Copy rtl and tb from run folder to scr:
 * ./do.pl -C rtl:tb -O -S --sim_args="+BIN=add.bin"
 * ##  Opens the waveform viewer
 * vsim -64 -view logs/default/waveform.wlf -do wave.do
