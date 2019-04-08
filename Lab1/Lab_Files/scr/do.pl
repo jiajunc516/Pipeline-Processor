@@ -11,7 +11,7 @@
 	use File::Basename;
 	use Term::ANSIColor qw(:constants);
 	use Switch;
-	use Getopt::Mixed;
+	use Mixed;
 	use FindBin;                # where was script installed?
 	use lib $FindBin::Bin;      # use that dir for libs, too
 	use Data::Dumper;
@@ -24,15 +24,12 @@
 	# print RED. "Stop!\n". RESET;
 	# print GREEN. "Go!\n". RESET;
 
-   
-
-
 
 #{ <--<> Main
-   # signature();   
-   # GetTimeAndPrint();
+  # signature();   
+  # GetTimeAndPrint();
 
-    call_history(); 
+  call_history(); 
 	get_command_line_options();
 	
 	initialize();

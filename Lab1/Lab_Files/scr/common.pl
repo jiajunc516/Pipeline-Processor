@@ -22,10 +22,10 @@ use Data::Dumper;
     my $LOC               =  `pwd`;
        $LOC               =~ s/[\r\n]//g;
     my $USER              = `whoami`;   
-    my $sim               = $ENV{'sim'};
+    my $sim               = $ENV{'run'};
     my $test_loc          = $ENV{'verif'}."/test";
-    my $test_loc          = $ENV{'verif'}."/test/cmd_list_tests";
-    my $base_cfg_filename = "$sim/default.cfg";
+    my $test_loc          = $ENV{'verif'}."/test/bin";
+    my $base_cfg_filename = "$sim/cfg/default.cfg";
     my $FN_RUN_HISTORY    = ".run_history";
     my $LOGDIR            = "logs";
     my $GCCCOMPCMD        = "gcc";
@@ -45,13 +45,7 @@ use Data::Dumper;
 	my $lib_loc           = "questa";
 	my @libraries         = ();
 	# push( @libraries, work                       ); # Default library
-	push( @libraries, gll_ldpc_lib               );
-	push( @libraries, ip_plug_lib                );
 	push( @libraries, mem_cells                  );
-	push( @libraries, gll_fft_lib                );
-	push( @libraries, c8cmg_sequential_delay_lib );
-	push( @libraries, c8cmg_notech_lib           );
-	push( @libraries, APB4_STbus_Bridge          );
 	
     our $DUT_TOP;
     our $TB_TOP;
@@ -86,23 +80,9 @@ use Data::Dumper;
 	
 	
     my @vhdl_library_path = (
-                              $ENV{'CATSON_LIBRARY'}."/ST/modem/LDPC/17_02_03/gll_ldpc_lib_rtl_int3/gll_ldpc_lib/rtl_vhdl/hdl.list",
-                              $ENV{'CATSON_LIBRARY'}."/ST/modem/FFT/17_01_30/gll_fft_lib/rtl_vhdl/hdl.list",
-                              $ENV{'CATSON_LIBRARY'}."/ST/ST_ip_plug/APB4_STbus_Bridge_1031/v1.0/hdl.list",
-                              $ENV{'CATSON_LIBRARY'}."/ST/Libraries-2016-07-19/SPX_NOTECH_LIB/c8cmg_sequential_delay_lib/rtl_vhdl/v1.0_1ns/hdl.list",
-                              $ENV{'CATSON_LIBRARY'}."/ST/Libraries-2016-07-19/SPX_NOTECH_LIB/c8cmg_notech_lib/rtl_vhdl/v12.2_beta1/hdl.list",
-                              $ENV{'CATSON_LIBRARY'}."/ST/ST_ip_plug/triple_client_plugs_01312017/triple_client_write_ip_plug/src/hdl.list" , 
-                              $ENV{'CATSON_LIBRARY'}."/ST/ST_ip_plug/triple_client_plugs_01312017/triple_client_read_ip_plug/src/hdl.list"
                         );        
 	
     my @vhdl_library_name = qw( 
-                                gll_ldpc_lib
-                                gll_fft_lib 
-                                APB4_STbus_Bridge
-                                c8cmg_sequential_delay_lib 
-                                c8cmg_notech_lib
-                                ip_plug_lib
-                                ip_plug_lib
 							);
 	
     my @cell_library_path = ( $ENV{'sim_top'}."/../cell_sources.list"  );        
@@ -257,9 +237,9 @@ sub get_command_line_options {
          'setlib|L!'      => \$options{'setlib'} ,      
          'sim_args=s'     => sub { push( @sim_user_arg, $_[1] ); } ,      
          'test|T=s'       => sub { $options{'testname'} = $_[1]; 
-                                    my $test_full_path = $test_loc.'/'.$options{'testname'}.'/'.$options{'testname'}.".txt";
+                                    my $test_full_path = $test_loc.'/'.$options{'testname'};
                                     if ( -f $test_full_path ){
-                                        push( @sim_user_arg, "+TEST=".$test_loc.'/'.$options{'testname'}.'/'.$options{'testname'}.".txt" );
+                                        push( @sim_user_arg, "+TEST=".$test_loc.'/'.$options{'testname'} );
                                         push( @sim_user_arg, "+TESTNAME=".$options{'testname'} );
                                     } else {
                                         my $cmd = "ls -ltr ".$test_loc." | awk '{print \$9}' ";
