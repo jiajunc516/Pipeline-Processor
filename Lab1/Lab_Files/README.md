@@ -23,7 +23,7 @@ This README documents whatever steps are necessary to get your simulation up and
 * ## Copy rtl and tb from run folder to scr:
 * ./do.pl -C rtl:tb -O -S --sim_args="+BIN=add.bin"
 * ##  Opens the waveform viewer
-* vsim -64 -view logs/default/waveform.wlf -do wave.do
+* vsim -64 -view logs/default/waveform.wlf -do ../sim/run/wave.do
 
  
 ### Notes ###
