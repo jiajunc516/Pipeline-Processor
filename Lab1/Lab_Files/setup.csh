@@ -25,3 +25,8 @@ setenv verif `pwd`/sim/verif
 setenv scripts `pwd`/scr
 
 
+
+ln -s ../../scr/common.pl sim/run/ -f
+ln -s ../../scr/do.pl     sim/run/ -f
+ln -s ../../scr/Mixed.pm  sim/run/ -f
+
