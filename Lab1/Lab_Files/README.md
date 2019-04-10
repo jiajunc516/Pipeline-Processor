@@ -9,7 +9,8 @@ This README documents whatever steps are necessary to get your simulation up and
 
 ### How do I get set up? ###
 
-* git clone ...
+* git clone git@github.uci.edu:112L/Labs.git
+* cd cd Labs/Lab1/Lab_Files/
 * source setup.csh
 * cd sim/run/
 * ## Lists all the design files that need to be compiled and writes into rtl.f
@@ -17,16 +18,16 @@ This README documents whatever steps are necessary to get your simulation up and
 * ## Lists all the testbench files that need to be compiled and writes into tb.f
 * $scripts/lister.pl -top_rtl_cfg $verif/tb/tb.list -sim_file_list tb.f
 * ## Creates libraries (needed only once)
-* ## Go to scr folder and ther run:
 * ./do.pl -L
-* ## Compiles rtl, Compiles testbench, optimises, and run the simulation with the binaary file "add.bin"
-* ## Copy rtl and tb from run folder to scr:
+* ## Compiles rtl, Compiles testbench, optimises, and run the simulation with the binary file "add.bin"
 * ./do.pl -C rtl:tb -O -S --sim_args="+BIN=add.bin"
 * ##  Opens the waveform viewer
-* vsim -64 -view logs/default/waveform.wlf -do ../sim/run/wave.do
+* vsim -64 -view logs/default/waveform.wlf -do wave.do
 
  
 ### Notes ###
+* ## If you forgot the arguments of do.pl
+./do.pl -h
 
 * inst.bin is located under $verif/test/bin/
 
