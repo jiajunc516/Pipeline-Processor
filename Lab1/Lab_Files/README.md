@@ -30,8 +30,8 @@ This README documents whatever steps are necessary to get your simulation up and
 ``vsim -64 -view logs/default/waveform.wlf -do wave.do``
 
  
-### Notes ###
-* ## If you forgot the arguments of do.pl
+## Notes ##
+### If you forgot the arguments of do.pl
 ``./do.pl -h``
 
 * inst.bin is located under ``$verif/test/bin/``
@@ -42,12 +42,12 @@ This README documents whatever steps are necessary to get your simulation up and
 
 * Dirctory Structure
 
-"
+``
 .
-├── doc
+├── doc  
 ├── qip
-│   ├── cdc
-│   ├── emu
+│   ├── cdc  
+│   ├── emu  
 │   ├── formal
 │   ├── lint
 │   └── syn
@@ -67,5 +67,5 @@ This README documents whatever steps are necessary to get your simulation up and
     ├── design_top.sv
     ├── sources.list
     └── sub
-"
+``
 
