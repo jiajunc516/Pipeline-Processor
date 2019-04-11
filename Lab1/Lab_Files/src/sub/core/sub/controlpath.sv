@@ -1,4 +1,3 @@
-
 import riscv_package::*;
 
 module controlpath (
@@ -7,14 +6,14 @@ module controlpath (
   );
 
   always_comb begin
-    ctrl.alu_src = {
-      ( inst.rinst.opcode == OP_LOAD   ||
+
+        ctrl.alu_src =
+      ( inst.rinst.opcode == OP_OP ||
+        inst.rinst.opcode == OP_LOAD   ||
         inst.rinst.opcode == OP_STORE  ||
-        inst.rinst.opcode == OP_OP_IMM ||
         inst.rinst.opcode == OP_JALR   ||
-        inst.rinst.opcode == OP_LUI) ,
-      ( inst.rinst.opcode == OP_LUI)
-    };
+        inst.rinst.opcode == OP_LUI);
+
 
     case( inst.rinst.opcode )
       OP_LOAD , OP_LOAD_FP : ctrl.mem2reg = 2'b01;
@@ -50,3 +49,4 @@ module controlpath (
 
   end
 endmodule:controlpath
+
