@@ -7,7 +7,7 @@ module controlpath (
 
   always_comb begin
 
-        ctrl.alu_src =ctrl.alu_src = {
+        ctrl.alu_src = {
       ( inst.rinst.opcode == OP_LOAD   ||
         inst.rinst.opcode == OP_STORE  ||
         inst.rinst.opcode == OP_OP_IMM ||
