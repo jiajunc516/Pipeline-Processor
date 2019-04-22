@@ -65,7 +65,7 @@ module datapath
 
 
   assign aluop1 = regf_dout1;
-  assign aluop2 = ctrl.alu_src ?  regf_dout2 : imm_val;
+  assign aluop2 = ~ctrl.alu_src ?  regf_dout2 : imm_val;
 
   alu_operation_e  operation;
   logic       cont_beq;
