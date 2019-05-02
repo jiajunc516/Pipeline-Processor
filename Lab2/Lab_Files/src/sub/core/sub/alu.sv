@@ -15,6 +15,7 @@ module alu
   always_comb
   begin
     result = 'd0;
+    branch = 'd0;
     case(operation)
       ALU_AND:
         result = operand_a & operand_b;
@@ -37,19 +38,18 @@ module alu
       ALU_SRA:
             result = $signed(operand_a) >>> operand_b[4:0];
       ALU_BEQ:
-            branch = (operand_a == operand_b);
+            branch = 'd1;
       ALU_BNE:
-            branch = (operand_a != operand_b);
+            branch = 'd1;
       ALU_BLT:
-            branch = ($signed(operand_a) < $signed(operand_b));
+            branch = 'd1;
       ALU_BGE:
-            branch = ($signed(operand_a) >= $signed(operand_b));
-      ALU_BLTU:
-            branch = (operand_a < operand_b);
-      ALU_BGEU:
-            branch = (operand_a >= operand_b);
+            branch = 'd1;
       default:
+      begin
         result = 'b0;
+        branch = 'd0;
+      end
     endcase
   end
 endmodule:alu
