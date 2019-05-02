@@ -21,8 +21,11 @@ module datapath
   logic [AW-1:0] regf_wr_addr;
   logic [DW-1:0] regf_wr_data;
   logic [DW-1:0] imm_val;
+  
+  logic [DW-1:0] branch_next;
+  logic [DW-1:0] jump_next;
 
-  assign  pc_next = pc + 1;
+  assign  pc_next = branch ? branch_next : (jump ? jump_next : pc + 1);
 
   program_counter
   #(.AW(AW))
