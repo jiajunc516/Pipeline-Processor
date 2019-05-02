@@ -107,5 +107,14 @@ module datapath
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
   assign dmem_if.wdata = regf_dout2;
+  
+  branch bran_inst(
+	.alu_zero (alu_zero),
+	.controller_branch (comp_out),
+	.shift_input (imm_val),
+	.pc_output ( pc ),
+	.adder_output ( pc + 1),
+	.mux_output ( pc_next )
+  );
 
 endmodule:datapath

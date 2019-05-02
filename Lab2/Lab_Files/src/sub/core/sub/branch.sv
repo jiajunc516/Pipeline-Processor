@@ -9,10 +9,9 @@ module branch
 		input logic [DW-1:0] pc_output,
 		input logic [DW-1:0] adder_output,
 		
-		output logic [DW-1:0] mux_input,
 		output logic [DW-1:0] mux_output
 	);
-	
+	logic [DW-1:0] mux_input;
 	assign shift_output = shift_input << 1;
 	adder adder_l(
 		.a (pc_output),
