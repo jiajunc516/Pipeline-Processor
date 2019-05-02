@@ -24,6 +24,30 @@ module alu
         result = operand_a + operand_b;
       ALU_SUB:
         result = $signed(operand_a) - $signed(operand_b);
+      ALU_NOR:
+            result = operand_a ~| operand_b;
+      ALU_LT:
+            result = operand_a <operand_b ? 31'b1: 31'b0;
+      ALU_SLT:
+            result = $signed(operand_a)<$signed(operand_b)? 31'b1: 31'b0;
+      ALU_SLL:
+            result = operand_a << operand_b[4:0];
+      ALU_SRL:
+            result = operand_a >> operand_b[4:0];
+      ALU_SRA:
+            result = $signed(operand_a) >>> operand_b[4:0];
+      ALU_BEQ:
+            branch = (operand_a == operand_b);
+      ALU_BNE:
+            branch = (operand_a != operand_b);
+      ALU_BLT:
+            branch = ($signed(operand_a) < $signed(operand_b));
+      ALU_BGE:
+            branch = ($signed(operand_a) >= $signed(operand_b));
+      ALU_BLTU:
+            branch = (operand_a < operand_b);
+      ALU_BGEU:
+            branch = (operand_a >= operand_b);
       default:
         result = 'b0;
     endcase
