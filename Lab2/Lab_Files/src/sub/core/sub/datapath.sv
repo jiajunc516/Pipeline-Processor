@@ -13,7 +13,7 @@ module datapath
     controller_if.in     ctrl,
     output [AW-1:0]      pc,
     memory_if.master     dmem_if,
-	output logic [DW-1:0] WB_Data
+    output logic [DW-1:0] WB_Data
   );
 
   logic [AW-1:0] pc_next;
@@ -38,7 +38,7 @@ module datapath
 
   assign regf_wr_en   = ctrl.reg_write;
   assign regf_wr_addr = inst.rinst.rd;
-  assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : dmem_if.rdata;
+  assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : r_data;
 
   // J-type or U-type
   logic jump;
@@ -83,24 +83,24 @@ module datapath
   adder #( .WD(AW) )
   jalradder
   (
-	.a	(regf_dout1),
-	.b	(imm_val),
-	.y	(pc_jalr)
+    .a  (regf_dout1),
+    .b  (imm_val),
+    .y  (pc_jalr)
   );
   adder #( .WD(AW) )
   jaladder
   (
-	.a	(pc),
-	.b 	(imm_val),
-	.y 	(pc_jal)
+    .a  (pc),
+    .b  (imm_val),
+    .y  (pc_jal)
   );
   mux2 #( .WD(AW) )
   jalpc
   (
-	.a	(pc_jal),
-	.b 	(pc_jalr),
-	.s 	(ctrl.jalr_mode),
-	.y 	(pc_imm)
+    .a  (pc_jal),
+    .b  (pc_jalr),
+    .s  (ctrl.jalr_mode),
+    .y  (pc_imm)
   );
   // End jump pc
 
@@ -166,15 +166,53 @@ module datapath
   mux2 #( .WD(AW) )
   jmp_mux
   (
-	.a	(pc_F),
-	.b	(pc_imm),
-	.s	(jump),
-	.y	(pc_next)
+    .a  (pc_F),
+    .b  (pc_imm),
+    .s  (jump),
+    .y  (pc_next)
   );
   
   // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
-  assign dmem_if.wdata = regf_dout2;
+  // Store data
+  always_com
+	begin
+	  case(inst.func3)
+		3'b000: // SB
+			dmem_if.wdata = {24{regf_dout2[7]}, regf_dout2[7:0]};
+		3'b001: // SH
+			dmem_if.wdata = {16{regf_dout2[15]}, regf_dout2[15:0]};
+		3'b010: // SW
+			dmem_if.wdata = regf_dout2;
+	  default:
+		dmem_if.wdata = regf_dout2; 
+	endcase
+  end
+  
+  data_memory(
+	.clk(clk),
+	.mem_if(dmem_if)
+  );
+  
+  // Load data
+  logic [DW-1] r_data;
+  always_com
+	begin
+	  case(inst.func3)
+		3'b000: // LB
+			r_data = {24{dmem_if.rdata[31]}, dmem_if.rdata[7:0]};
+		3'b001: // LH
+			r_data = {16{dmem_if.rdata[31]}, dmem_if.rdata[15:0]};
+		3'b010: // LW
+			r_data = dmem_if.rdata;
+		3'b100: // LBU
+			r_data = {24'b0, dmem_if.rdata[7:0]};
+		3'b101: // LHU
+			r_data = {16'b0, dmem_if.rdata[15:0]};
+	  default:
+		r_data = dmem_if.rdata; 
+	endcase
+  end
 
 endmodule:datapath
