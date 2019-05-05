@@ -40,10 +40,19 @@ module datapath
   assign regf_wr_addr = inst.rinst.rd;
   assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : dmem_if.rdata;
 
+  // J-type or U-type
   logic jump;
+  logic [1:0] U_pc;
+  logic [AW-1:0] pc_imm;
   logic [DW-1:0] w_j_data;
-  assign jump = ctrl.jalr_mode && ctrl.jal_mode;
+  logic [DW-1:0] w_auipc_data;
+  logic [DW-1:0] w_lui_data;
+  assign jump = ctrl.jalr_mode || ctrl.jal_mode;
+  assign U_pc[0] = inst.opocode == OP_AUIPC;
+  assign U_pc[1] = inst.opocode == OP_LUI;
   assign w_j_data = jump ? pc_4 : regf_wr_data;
+  assign w_auipc_data = U_pc[0] ? pc_imm : w_j_data;
+  assign w_lui_data = U_pc[1] ? imm_val : w_auipc_data;
   
   register_file
   #( .AW(5), .DW(DW))
@@ -57,7 +66,7 @@ module datapath
     .rd_data2 ( regf_dout2     ),
     .wr_en    ( regf_wr_en     ),
     .wr_addr  ( regf_wr_addr   ),
-    .wr_data  ( w_j_data  )
+    .wr_data  ( w_lui_data  )
   );
 
   immediate_generator
@@ -71,7 +80,6 @@ module datapath
   // Jump pc
   logic [AW-1:0] pc_jalr;
   logic [AW-1:0] pc_jal;
-  logic [AW-1:0] pc_imm;
   adder #( .WD(AW) )
   jalradder
   (
