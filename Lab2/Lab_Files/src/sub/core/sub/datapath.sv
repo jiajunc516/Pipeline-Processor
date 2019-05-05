@@ -13,6 +13,7 @@ module datapath
     controller_if.in     ctrl,
     output [AW-1:0]      pc,
     memory_if.master     dmem_if
+	output logic [DW-1:0] WB_Data
   );
 
   logic [AW-1:0] pc_next;
@@ -21,9 +22,6 @@ module datapath
   logic [AW-1:0] regf_wr_addr;
   logic [DW-1:0] regf_wr_data;
   logic [DW-1:0] imm_val;
-  
-  logic [DW-1:0] branch_next;
-  logic [DW-1:0] jump_next;
 
   program_counter
   #(.AW(AW))
@@ -35,12 +33,17 @@ module datapath
     .pc     ( pc      )
   );
 
+  logic [AW-1:0] pc_4;
+  assign pc_4 = pc + 4;
 
   assign regf_wr_en   = ctrl.reg_write;
   assign regf_wr_addr = inst.rinst.rd;
   assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : dmem_if.rdata;
 
-
+  logic jump;
+  assign jump = ctrl.jalr_mode && ctrl.jal_mode;
+  //assign regf_wr_data = jump ? pc_4
+  
   register_file
   #( .AW(5), .DW(DW))
   regf_inst
@@ -95,34 +98,43 @@ module datapath
     .branch    ( alu_zero ),
     .result    ( alu_result )
   );
+  assign WB_Data = alu_result;
   
   // Branch control
-  logic [31:0] imm_sft;
+  logic [DW-1:0] imm_sft;
   assign imm_sft = imm_val << 1;
-  logic     bran_adder_out;
+  logic     pc_N;
   logic     bran_cont;
   assign bran_cont = alu_zero && branch;
   
-  adder #( .WD(32) )
+  adder #( .WD(AW) )
   pcadder
   (
     .a  (pc),
     .b  (imm_sft),
-    .y  (bran_adder_out)
+    .y  (pc_N)
   );
   
-  logic [31:0] pc_4;
-  assign pc_4 = pc + 4;
+  logic [AW-1:0] pc_F;
   
-  mux2 #( .WD(32) )
+  mux2 #( .WD(AW) )
   pcmux
   (
     .a  (pc_4),
-    .b  (bran_adder_out),
+    .b  (pc_N),
     .s  (bran_cont),
-    .y  (pc_next)
+    .y  (pc_F)
   );
-  //assign  pc_next = branch ? branch_next : (jump ? jump_next : pc + 1);
+  // Jump control
+  
+  mux2 #( .WD(AW) )
+  (
+	.a	(pc_F),
+	.b	(pc_imm),
+	.s	(jump),
+	.y	(pc_next)
+  );
+  
   // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
