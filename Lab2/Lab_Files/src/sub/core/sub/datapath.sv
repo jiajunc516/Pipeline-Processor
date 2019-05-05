@@ -85,15 +85,6 @@ module datapath
     .funct7 ( inst.rinst.func7 )
   );
 
-  logic       comp_out;
-  
-  comparator comp_inst(
-    .operand_a (aluop1),
-    .operand_b (aluop2),
-    .funct3 (inst.binst.funct3)
-    .dout (comp_out)
-  );
-
   logic       alu_zero;
 
   alu
