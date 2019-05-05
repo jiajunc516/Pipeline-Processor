@@ -41,8 +41,9 @@ module datapath
   assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : dmem_if.rdata;
 
   logic jump;
+  logic [DW-1:0] w_j_data;
   assign jump = ctrl.jalr_mode && ctrl.jal_mode;
-  //assign regf_wr_data = jump ? pc_4
+  assign w_j_data = jump ? pc_4 : regf_wr_data;
   
   register_file
   #( .AW(5), .DW(DW))
@@ -56,7 +57,7 @@ module datapath
     .rd_data2 ( regf_dout2     ),
     .wr_en    ( regf_wr_en     ),
     .wr_addr  ( regf_wr_addr   ),
-    .wr_data  ( regf_wr_data   )
+    .wr_data  ( w_j_data  )
   );
 
   immediate_generator
@@ -67,6 +68,33 @@ module datapath
     .imm  ( imm_val )
   );
 
+  // Jump pc
+  logic [AW-1:0] pc_jalr;
+  logic [AW-1:0] pc_jal;
+  logic [AW-1:0] pc_imm;
+  adder #( .DW(AW) )
+  jalradder
+  (
+	.a	(regf_dout1),
+	.b	(imm_val),
+	.y	(pc_jalr)
+  );
+  adder #( .DW(AW) )
+  jaladder
+  (
+	.a	(pc),
+	.b 	(imm_val),
+	.y 	(pc_jal)
+  );
+  mux2 #( .WD(AW) )
+  jalpc
+  (
+	.a	(pc_jal),
+	.b 	(pc_jalr),
+	.s 	(ctrl.jalr_mode),
+	.y 	(pc_imm)
+  );
+  // End jump pc
 
   assign aluop1 = regf_dout1;
   assign aluop2 = ~ctrl.alu_src ?  regf_dout2 : imm_val;
@@ -103,7 +131,7 @@ module datapath
   // Branch control
   logic [DW-1:0] imm_sft;
   assign imm_sft = imm_val << 1;
-  logic     pc_N;
+  logic [AW-1:0] pc_N;
   logic     bran_cont;
   assign bran_cont = alu_zero && branch;
   
@@ -125,8 +153,8 @@ module datapath
     .s  (bran_cont),
     .y  (pc_F)
   );
-  // Jump control
   
+  // Jump control
   mux2 #( .WD(AW) )
   (
 	.a	(pc_F),
