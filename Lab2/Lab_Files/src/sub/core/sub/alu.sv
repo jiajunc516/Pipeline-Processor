@@ -38,13 +38,17 @@ module alu
       ALU_SRA:
             result = $signed(operand_a) >>> operand_b[4:0];
       ALU_BEQ:
-            branch = 'd1;
+            branch = operand_a == operand_b;
       ALU_BNE:
-            branch = 'd1;
+            branch = operand_a != operand_b;
       ALU_BLT:
-            branch = 'd1;
+            branch = $signed(operand_a) < $signed(operand_b);
       ALU_BGE:
-            branch = 'd1;
+            branch = $signed(operand_a) >= $signed(operand_b);
+	  ALU_BLTU:
+			branch = operand_a < operand_b;
+	  ALU_BGEU:
+			branch = operand_a >= operand_b;
       default:
       begin
         result = 'b0;
