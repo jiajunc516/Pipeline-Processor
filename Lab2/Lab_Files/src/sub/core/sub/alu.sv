@@ -45,10 +45,10 @@ module alu
             branch = $signed(operand_a) < $signed(operand_b);
       ALU_BGE:
             branch = $signed(operand_a) >= $signed(operand_b);
-	  ALU_BLTU:
-			branch = operand_a < operand_b;
-	  ALU_BGEU:
-			branch = operand_a >= operand_b;
+      ALU_BLTU:
+            branch = operand_a < operand_b;
+      ALU_BGEU:
+            branch = operand_a >= operand_b;
       default:
       begin
         result = 'b0;

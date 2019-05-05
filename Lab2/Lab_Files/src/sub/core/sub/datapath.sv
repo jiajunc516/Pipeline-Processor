@@ -97,18 +97,37 @@ module datapath
     .branch    ( alu_zero ),
     .result    ( alu_result )
   );
+  
+  // Branch control
+  logic [31:0] imm_sft;
+  assign imm_sft = imm_val << 1;
+  logic		bran_adder_out;
+  logic		bran_cont;
+  assign bran_cont = alu_zero && branch;
+  
+  adder #( .WD(32) )
+  pcadder
+  (
+	.a	(pc),
+	.b	(imm_sft),
+	.y	(bran_adder_out)
+  );
+  
+  logic [31:0] pc_4;
+  assign pc_4 = pc + 4;
+  
+  mux2 #( .WD(32) )
+  pcmux
+  (
+	.a	(pc_4),
+	.b	(bran_adder_out),
+	.s	(bran_cont),
+	.y	(pc_next)
+  );
 
+  // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
   assign dmem_if.wdata = regf_dout2;
-  
-  branch bran_inst(
-	.alu_zero (alu_zero),
-	.controller_branch (comp_out),
-	.shift_input (imm_val),
-	.pc_output ( pc ),
-	.adder_output ( pc + 1),
-	.mux_output ( pc_next )
-  );
 
 endmodule:datapath
