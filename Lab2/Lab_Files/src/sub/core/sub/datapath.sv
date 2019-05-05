@@ -25,8 +25,6 @@ module datapath
   logic [DW-1:0] branch_next;
   logic [DW-1:0] jump_next;
 
-  assign  pc_next = branch ? branch_next : (jump ? jump_next : pc + 1);
-
   program_counter
   #(.AW(AW))
   pc_inst
@@ -101,16 +99,16 @@ module datapath
   // Branch control
   logic [31:0] imm_sft;
   assign imm_sft = imm_val << 1;
-  logic		bran_adder_out;
-  logic		bran_cont;
+  logic     bran_adder_out;
+  logic     bran_cont;
   assign bran_cont = alu_zero && branch;
   
   adder #( .WD(32) )
   pcadder
   (
-	.a	(pc),
-	.b	(imm_sft),
-	.y	(bran_adder_out)
+    .a  (pc),
+    .b  (imm_sft),
+    .y  (bran_adder_out)
   );
   
   logic [31:0] pc_4;
@@ -119,12 +117,12 @@ module datapath
   mux2 #( .WD(32) )
   pcmux
   (
-	.a	(pc_4),
-	.b	(bran_adder_out),
-	.s	(bran_cont),
-	.y	(pc_next)
+    .a  (pc_4),
+    .b  (bran_adder_out),
+    .s  (bran_cont),
+    .y  (pc_next)
   );
-
+  //assign  pc_next = branch ? branch_next : (jump ? jump_next : pc + 1);
   // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
