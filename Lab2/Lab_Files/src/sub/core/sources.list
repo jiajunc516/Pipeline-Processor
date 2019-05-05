@@ -11,6 +11,8 @@ sub/alu.sv
 sub/register_file.sv
 sub/datapath.sv
 sub/controlpath.sv
+sub/adder.sv
+sub/mux2.sv
 riscv.sv
 
 

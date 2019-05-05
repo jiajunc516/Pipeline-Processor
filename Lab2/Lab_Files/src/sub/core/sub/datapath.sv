@@ -12,7 +12,7 @@ module datapath
     input riscv_inst32_t inst,
     controller_if.in     ctrl,
     output [AW-1:0]      pc,
-    memory_if.master     dmem_if
+    memory_if.master     dmem_if,
 	output logic [DW-1:0] WB_Data
   );
 
@@ -72,14 +72,14 @@ module datapath
   logic [AW-1:0] pc_jalr;
   logic [AW-1:0] pc_jal;
   logic [AW-1:0] pc_imm;
-  adder #( .DW(AW) )
+  adder #( .WD(AW) )
   jalradder
   (
 	.a	(regf_dout1),
 	.b	(imm_val),
 	.y	(pc_jalr)
   );
-  adder #( .DW(AW) )
+  adder #( .WD(AW) )
   jaladder
   (
 	.a	(pc),
@@ -133,7 +133,7 @@ module datapath
   assign imm_sft = imm_val << 1;
   logic [AW-1:0] pc_N;
   logic     bran_cont;
-  assign bran_cont = alu_zero && branch;
+  assign bran_cont = alu_zero && ctrl.branch;
   
   adder #( .WD(AW) )
   pcadder
@@ -156,6 +156,7 @@ module datapath
   
   // Jump control
   mux2 #( .WD(AW) )
+  jmp_mux
   (
 	.a	(pc_F),
 	.b	(pc_imm),
