@@ -33,8 +33,9 @@ module datapath
     .pc     ( pc      )
   );
 
+  logic [AW-1:0] pc_1;
   logic [AW-1:0] pc_4;
-  logic [DW-1:0] r_data;
+  assign pc_1 = pc + 1;
   assign pc_4 = pc + 4;
 
   assign regf_wr_en   = ctrl.reg_write;
@@ -49,12 +50,12 @@ module datapath
   logic [DW-1:0] w_auipc_data;
   logic [DW-1:0] w_lui_data;
   assign jump = ctrl.jalr_mode || ctrl.jal_mode;
-  assign U_pc[0] = inst.uinst.opcode == OP_AUIPC;
-  assign U_pc[1] = inst.uinst.opcode == OP_LUI;
+  assign U_pc[0] = (inst.uinst.opcode == OP_AUIPC);
+  assign U_pc[1] = (inst.uinst.opcode == OP_LUI);
   assign w_j_data = jump ? pc_4 : regf_wr_data;
   assign w_auipc_data = U_pc[0] ? pc_imm : w_j_data;
   assign w_lui_data = U_pc[1] ? imm_val : w_auipc_data;
-  
+
   register_file
   #( .AW(5), .DW(DW))
   regf_inst
@@ -136,7 +137,7 @@ module datapath
     .result    ( alu_result )
   );
   assign WB_Data = alu_result;
-  
+
   // Branch control
   logic [DW-1:0] imm_sft;
   assign imm_sft = imm_val << 1;
@@ -157,7 +158,7 @@ module datapath
   mux2 #( .WD(AW) )
   pcmux
   (
-    .a  (pc_4),
+    .a  (pc_1),
     .b  (pc_N),
     .s  (bran_cont),
     .y  (pc_F)
@@ -172,50 +173,25 @@ module datapath
     .s  (jump),
     .y  (pc_next)
   );
-  
+
   // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
-  assign dmem_if.wdata = regf_dout2;
- /*
+  //assign dmem_if.wdata = regf_dout2;
+
   // Store data
   always_comb
-	begin
-	  case(inst.sinst.func3)
-		3'b000: // SB
-			dmem_if.wdata = {{24{regf_dout2[7]}}, regf_dout2[7:0]};
-		3'b001: // SH
-			dmem_if.wdata = {{16{regf_dout2[15]}}, regf_dout2[15:0]};
-		3'b010: // SW
-			dmem_if.wdata = regf_dout2;
-	  default:
-		dmem_if.wdata = regf_dout2; 
-	endcase
+    begin
+      case(inst.sinst.func3)
+        3'b000: // SB
+            dmem_if.wdata = {{24{regf_dout2[7]}}, regf_dout2[7:0]};
+        3'b001: // SH
+            dmem_if.wdata = {{16{regf_dout2[15]}}, regf_dout2[15:0]};
+        3'b010: // SW
+            dmem_if.wdata = regf_dout2;
+      default:
+        dmem_if.wdata = regf_dout2; 
+    endcase
   end
-  
-  data_memory dmem_inst(
-	.clk(clk),
-	.mem_if(dmem_if)
-  );
-  
-  // Load data
-  
-  always_comb
-	begin
-	  case(inst.iinst.func3)
-		3'b000: // LB
-			r_data = {{24{dmem_if.rdata[31]}}, dmem_if.rdata[7:0]};
-		3'b001: // LH
-			r_data = {{16{dmem_if.rdata[31]}}, dmem_if.rdata[15:0]};
-		3'b010: // LW
-			r_data = dmem_if.rdata;
-		3'b100: // LBU
-			r_data = {24'b0, dmem_if.rdata[7:0]};
-		3'b101: // LHU
-			r_data = {16'b0, dmem_if.rdata[15:0]};
-	  default:
-		r_data = dmem_if.rdata; 
-	endcase
-  end
-*/
+
 endmodule:datapath

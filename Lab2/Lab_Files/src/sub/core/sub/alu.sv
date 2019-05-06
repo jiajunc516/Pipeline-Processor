@@ -25,10 +25,10 @@ module alu
         result = operand_a + operand_b;
       ALU_SUB:
         result = $signed(operand_a) - $signed(operand_b);
-      ALU_NOR:
-            result = ~ (operand_a | operand_b);
-      ALU_LT:
-            result = operand_a <operand_b ? 31'b1: 31'b0;
+      ALU_SLTU:
+            result = operand_a < operand_b ? 31'b1 : 31'b0;
+      ALU_XOR:
+            result = operand_a ^ operand_b;
       ALU_SLT:
             result = $signed(operand_a)<$signed(operand_b)? 31'b1: 31'b0;
       ALU_SLL:

@@ -20,18 +20,7 @@ module alu_controller(
 
   logic cont_lb_sb, cont_lh_sh, cont_lbu, cont_lhu;
 
-  assign operation[0]= (((aluop == 2'b10)  && ((funct3==3'b110) || (funct3==3'b001) || (funct3==3'b100) || (funct7 == 7'b0000000 && (funct3==3'b101)) || (funct3==3'b011)))   ||
-                       ( (aluop == 2'b01 ) && ((funct3==3'b110) || (funct3==3'b111) ) ) );
-  assign operation[1]= (   ((aluop ==2'b10) &&    ( (funct3==3'b000)||(funct3==3'b001)||(funct3==3'b100) ) ) ||
-      ((aluop ==2'b00) && ((funct3==3'b000) || (funct3==3'b001) || (funct3==3'b100) || (funct3==3'b101) || (funct3==3'b010)) ) ||
-      ((aluop==2'b01) && ((funct3==3'b000) || (funct3==3'b001) || (funct3==3'b111) || (funct3==3'b101))) ||
-      (aluop==2'b11));
-  assign operation[2]=  (    ( (aluop ==2'b10) &&   (( funct7 == 7'b0100000  &&  (funct3==3'b000)) || (funct3==3'b100) ||(funct3==3'b101)        )        ) ||
-      (    (aluop ==2'b01) &&    (    (funct3==3'b000) || (funct3==3'b001)    )  ));
-  assign operation[3]= (( (aluop ==2'b10) && ((funct3==3'b010) || (funct3==3'b011)  )  ) ||
-      ( (aluop ==2'b01) && ( (funct3==3'b100) || (funct3==3'b101) || (funct3==3'b110) || (funct3==3'b111) )));
-
-
+  
   assign cont_beq = ( (aluop ==2'b01) && (funct3==3'b000) );
   assign cont_bnq = ( (aluop ==2'b01) && (funct3==3'b001) );
   assign cont_blt = ( (aluop ==2'b01) && ( (funct3==3'b100) || (funct3==3'b110) ) );
@@ -41,6 +30,28 @@ module alu_controller(
   assign cont_lh_sh  = ( (aluop ==2'b00) && (funct3==3'b001) );
   assign cont_lbu    = ( (aluop ==2'b00) && (funct3==3'b100) );
   assign cont_lhu    = ( (aluop ==2'b00) && (funct3==3'b101) );
+
+  assign operation[0]= ((aluop[1]==1'b1) && (funct7==7'b0000000||aluop[0]==1'b1) && (funct3==3'b110))||
+                         ((aluop[1]==1'b1)&& (funct7==7'b0100000) &&(funct3==3'b101))||
+                         ((aluop[1]==1'b1)&& (funct7==7'b0000000||aluop[0]==1'b1) &&(funct3==3'b011))||
+                         ((aluop==2'b01)&&(funct3==3'b001||funct3==3'b000||funct3==3'b100||funct3==3'b101||funct3==3'b111));
+  assign operation[1]= (aluop==2'b00) ||
+                     ((aluop[1]==1'b1) && (funct7==7'b0000000||aluop[0]==1'b1) && (funct3==3'b000)) ||
+                     ((aluop[1]==1'b1) && (funct7==7'b0100000) && (funct3==3'b000)) ||
+                      ((aluop[1]==1'b1)&& (funct7==7'b0000000) &&(funct3==3'b001)) ||
+                      ((aluop==2'b01)&&(funct3==3'b100||funct3==3'b000||funct3==3'b101||funct3==3'b110||funct3==3'b111)) ;                    
+  assign operation[2]= ((aluop[1]==1'b1) && (funct7==7'b0100000) && (funct3==3'b000)) || 
+                        ((aluop[1]==1'b1) && (funct7==7'b0000000||aluop[0]==1'b1) && (funct3==3'b100))||
+                        ((aluop[1]==1'b1)&& (funct7==7'b0000000||aluop[0]==1'b1) &&(funct3==3'b010))||
+                        ((aluop[1]==1'b1)&& (funct7==7'b0000000||aluop[0]==1'b1) &&(funct3==3'b011))||
+                         ((aluop==2'b01)&&(funct3==3'b110||funct3==3'b001||funct3==3'b100||funct3==3'b111));
+  assign operation[3]= ((aluop[1]==1'b1)&& (funct7==7'b0000000) &&(funct3==3'b101)) ||
+                       ((aluop[1]==1'b1)&& (funct7==7'b0100000) &&(funct3==3'b101))||
+                        ((aluop[1]==1'b1)&& (funct7==7'b0000000) &&(funct3==3'b001))|| 
+                        ((aluop[1]==1'b1)&& (funct7==7'b0000000||aluop[0]==1'b1) &&(funct3==3'b010))||
+                        ((aluop[1]==1'b1)&& (funct7==7'b0000000||aluop[0]==1'b1) &&(funct3==3'b011))||
+                        ((aluop==2'b01)&&(funct3==3'b111||funct3==3'b101||funct3==3'b110));
+
 
   assign readdatasel  = ( cont_lb_sb ? 3'b001 :(cont_lh_sh ? 3'b010 : (cont_lbu ? 3'b011 : (cont_lhu ? 3'b100 : 3'b000))) );
   assign writedatasel = ( cont_lb_sb ? 2'b01 : (cont_lh_sh ? 2'b10 : 2'b00));
