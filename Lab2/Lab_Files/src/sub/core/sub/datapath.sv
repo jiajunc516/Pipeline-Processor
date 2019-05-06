@@ -34,11 +34,12 @@ module datapath
   );
 
   logic [AW-1:0] pc_4;
+  logic [DW-1:0] r_data;
   assign pc_4 = pc + 4;
 
   assign regf_wr_en   = ctrl.reg_write;
   assign regf_wr_addr = inst.rinst.rd;
-  assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : r_data;
+  assign regf_wr_data = ctrl.mem2reg != 2'b01 ? alu_result : dmem_if.rdata;
 
   // J-type or U-type
   logic jump;
@@ -48,8 +49,8 @@ module datapath
   logic [DW-1:0] w_auipc_data;
   logic [DW-1:0] w_lui_data;
   assign jump = ctrl.jalr_mode || ctrl.jal_mode;
-  assign U_pc[0] = inst.opocode == OP_AUIPC;
-  assign U_pc[1] = inst.opocode == OP_LUI;
+  assign U_pc[0] = inst.uinst.opcode == OP_AUIPC;
+  assign U_pc[1] = inst.uinst.opcode == OP_LUI;
   assign w_j_data = jump ? pc_4 : regf_wr_data;
   assign w_auipc_data = U_pc[0] ? pc_imm : w_j_data;
   assign w_lui_data = U_pc[1] ? imm_val : w_auipc_data;
@@ -175,14 +176,16 @@ module datapath
   // Data memory
   assign dmem_if.addr  = alu_result;
   assign dmem_if.wr    = ctrl.mem_write;
+  assign dmem_if.wdata = regf_dout2;
+ /*
   // Store data
-  always_com
+  always_comb
 	begin
-	  case(inst.func3)
+	  case(inst.sinst.func3)
 		3'b000: // SB
-			dmem_if.wdata = {24{regf_dout2[7]}, regf_dout2[7:0]};
+			dmem_if.wdata = {{24{regf_dout2[7]}}, regf_dout2[7:0]};
 		3'b001: // SH
-			dmem_if.wdata = {16{regf_dout2[15]}, regf_dout2[15:0]};
+			dmem_if.wdata = {{16{regf_dout2[15]}}, regf_dout2[15:0]};
 		3'b010: // SW
 			dmem_if.wdata = regf_dout2;
 	  default:
@@ -190,20 +193,20 @@ module datapath
 	endcase
   end
   
-  data_memory(
+  data_memory dmem_inst(
 	.clk(clk),
 	.mem_if(dmem_if)
   );
   
   // Load data
-  logic [DW-1] r_data;
-  always_com
+  
+  always_comb
 	begin
-	  case(inst.func3)
+	  case(inst.iinst.func3)
 		3'b000: // LB
-			r_data = {24{dmem_if.rdata[31]}, dmem_if.rdata[7:0]};
+			r_data = {{24{dmem_if.rdata[31]}}, dmem_if.rdata[7:0]};
 		3'b001: // LH
-			r_data = {16{dmem_if.rdata[31]}, dmem_if.rdata[15:0]};
+			r_data = {{16{dmem_if.rdata[31]}}, dmem_if.rdata[15:0]};
 		3'b010: // LW
 			r_data = dmem_if.rdata;
 		3'b100: // LBU
@@ -214,5 +217,5 @@ module datapath
 		r_data = dmem_if.rdata; 
 	endcase
   end
-
+*/
 endmodule:datapath
