@@ -8,16 +8,16 @@ package riscv_package;
     ALU_OR  = 4'b0001,
     ALU_ADD = 4'b0010,
     ALU_SUB = 4'b0110,
-    ALU_LT  = 4'b0111, // Less than
-    ALU_NOR = 4'b1100,
-    ALU_SLT = 4'b0011,
-    ALU_SLL = 4'b0100,
-    ALU_SRL = 4'b0101,
-    ALU_SRA = 4'b1000,
-    ALU_BEQ = 4'b1001,
-    ALU_BNE = 4'b1010,
-    ALU_BLT = 4'b1011,
-    ALU_BGE = 4'b1101,
+    ALU_BLT  = 4'b0111, // Less than
+    ALU_SLT = 4'b1100,
+    ALU_BEQ = 4'b0011,
+    ALU_XOR = 4'b0100,
+    ALU_BNE = 4'b0101,
+    ALU_SRL = 4'b1000,
+    ALU_SRA = 4'b1001,
+    ALU_SLL = 4'b1010,
+    ALU_BGE = 4'b1011,
+    ALU_SLTU = 4'b1101,
     ALU_BLTU = 4'b1110,
     ALU_BGEU = 4'b1111
   } alu_operation_e;
