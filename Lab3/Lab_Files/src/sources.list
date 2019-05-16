@@ -1,0 +1,3 @@
+#include sub/core/sources.list
+../sim/verif/mem_model/saed32sram.v
+design_top.sv
