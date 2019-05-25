@@ -4,7 +4,7 @@ module program_counter
   (
     input  logic clk,
     input  logic rst_n,
-    input  logic enable,
+    input  logic stall,
 
     input  logic [AW-1:0] din,
     output logic [AW-1:0] pc
@@ -12,9 +12,9 @@ module program_counter
 
   always_ff @(posedge clk)
   begin
-    if( ~rst_n )
+    if( rst_n )
       pc <= '0;
-    else if (enable)
+    else if (!stall)
       pc <= din;
   end
 

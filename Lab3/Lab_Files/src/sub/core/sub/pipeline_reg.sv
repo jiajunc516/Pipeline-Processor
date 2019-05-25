@@ -1,12 +1,12 @@
 typedef struct packed
 {
-	logic [31:0] pc_out;
-	logic [31:0] inst_out;
+	logic [8:0] curr_pc;
+	logic [31:0] curr_instr;
 }IF_ID_REG;
 
 typedef struct packed
 {
-	logic [31:0] pc_out;
+	logic [8:0] curr_pc;
 	logic [31:0] rdata1;
 	logic [31:0] rdata2;
 	logic [31:0] imm_value;
@@ -23,7 +23,7 @@ typedef struct packed
 	logic RegWrite;
 	logic MemRead;
 	logic MemWrite;
-	logic [1:0] rw_sel; //???
+	logic [1:0] rw_sel; //Read or Write
 	logic [1:0]  ALUOp;
 	logic branch;
 	logic Jalr_or_Jal;

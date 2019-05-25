@@ -6,5 +6,5 @@ module HarzardDetection
 	 output logic stall
 	);
 	
-	assign stall = (id_ex_MemRead && ((id_ex_rd == if_id_rs1) || (id_ex_rd == if_id_rs2)))? 1: 0;
+	assign stall = (id_ex_MemRead && ((id_ex_rd == if_id_rs1) || (id_ex_rd == if_id_rs2)))? 1'b1: 1'b0;
 endmodule: HarzardDetection
