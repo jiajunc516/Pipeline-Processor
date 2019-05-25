@@ -7,7 +7,8 @@ module datapath
     parameter PC_W = 9,
     parameter RF_ADDR = 5,
     parameter DW = 32,
-    parameter DM_ADDR = 9
+    parameter DM_ADDR = 9,
+	parameter AW = 32 //added here
   )
   (
     input logic          clk,
