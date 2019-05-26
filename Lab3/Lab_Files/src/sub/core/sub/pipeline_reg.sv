@@ -68,13 +68,3 @@ typedef struct packed
     logic [31:0] curr_instr; //current instruction-       
         //future update according to controller design
 }MEM_WB_REG;
-
-
-typedef union packed
-{
-    IF_ID_REG if_id;
-    ID_EX_REG id_ex;
-    EX_MEM_REG ex_mem;
-    MEM_WB_REG mem_wb;
-        //future update according to controller design
-}pipelining;

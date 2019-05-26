@@ -20,12 +20,13 @@ module datapath
     output logic [DW-1:0] WB_Data
   );
 
-  logic [PC_W-1:0] pc_4, pc_next;
+  logic [PC_W-1:0] cur_pc, pc_4, pc_next;
   logic [DW-1:0] alu_result;
   logic [DW-1:0] regf_dout1, regf_dout2;
   logic [RF_ADDR-1:0] regf_wr_addr;
   logic [RF_ADDR-1:0] regf_rd_addr1, regf_rd_addr2;
   //logic [DW-1:0] regf_wr_data;
+  logic [DW-1:0] ReadData;
   logic [DW-1:0] imm_val;
   logic [DW-1:0] br_imm, br_pc, old_pc_4;
   logic regf_wr_en;
@@ -44,7 +45,7 @@ module datapath
   MEM_WB_REG D;
 
   // next pc
-  adder #(PC_W) pcadd(pc, 9'b100, pc_4);
+  adder #(PC_W) pcadd(cur_pc, 9'b100, pc_4);
   mux2 #(PC_W) pcmux(pc_4, br_pc[PC_W-1:0], pc_sel, pc_next);
   
   program_counter
@@ -52,33 +53,34 @@ module datapath
   pc_inst
   ( .clk    ( clk   ),
     .rst_n  ( rst_n ),
-    .enable ( reg_stall  ),
+    .stall ( reg_stall  ),
     .din    ( pc_next ),
-    .pc     ( pc      )
+    .pc     ( cur_pc      )
   );
 
   // IF_ID_REG
   always @(posedge clk)
   begin
-    if ((rst_n) || pc_sel))
+    if ((rst_n) || (pc_sel))
     begin
         A.curr_pc <= 0;
         A.curr_instr <= 0;
     end
     else if (!reg_stall)
-    begin
-        A.curr_pc <= pc;
+	begin
+        A.curr_pc <= cur_pc;
         A.curr_instr <= inst;
     end
   end
 
+  assign pc = cur_pc;
   // hazard detection unit
   assign regf_wr_en   = D.RegWrite;
   assign regf_wr_addr = D.rd;
   assign regf_rd_addr1 = A.curr_instr[19:15];
   assign regf_rd_addr2 = A.curr_instr[24:20];
   
-  HarzardDetection detect(regf_rd_addr1, regf_rd_addr2, B.rd, B.MemRead, reg_stall);
+  HazardDetection detect(regf_rd_addr1, regf_rd_addr2, B.rd, B.MemRead, reg_stall);
   
   // register file
   register_file
@@ -158,7 +160,7 @@ module datapath
   end
   
   // forwarding unit
-  fowarding_unit forwrdunit(B.rs1, B.rs2, C.rd, D.rd, C.RegWrite, D.RegWrite, FA_sel, FB_sel);
+  forwarding_unit forwrdunit(B.rs1, B.rs2, C.rd, D.rd, C.RegWrite, D.RegWrite, FA_sel, FB_sel);
   
   // alu
   mux4 #(DW) FAmux(B.rdata1, wr_mux_result, C.alu_result, B.rdata1, FA_sel, FA_result);
@@ -251,7 +253,7 @@ module datapath
   assign dmem_if.wr    = ctrl.mem_write;
   assign dmem_if.addr  = C.alu_result[DM_ADDR-1:0];
   assign dmem_if.wdata = C.rdata2;
-  data_memory #(.AW(DM_ADDR), .DW(DW)) data_mem(clk, C.func3, dmem_if);
+  data_memory #(.AW(DM_ADDR), .DW(DW)) data_mem(clk, C.func3, dmem_if, ReadData);
   
   // MEM_WB_REG
   always @(posedge clk)
@@ -273,7 +275,7 @@ module datapath
     begin
         D.pc_imm <= C.pc_imm;
         D.pc_4 <= C.pc_4;
-        D.mem_read_data <= dmem_if.rdata;
+        D.mem_read_data <= ReadData;
         D.alu_result <= C.alu_result;
         D.imm_value <= C.imm_value;
         D.rd <= C.rd;
@@ -287,6 +289,7 @@ module datapath
   // last block
   mux2 #(32) resmux(D.alu_result, D.mem_read_data, D.MemtoReg, wr_mux_src);
   mux4 #(32) wrsmux(wr_mux_src, D.pc_4, D.imm_value, D.pc_imm, D.rw_sel, wr_mux_result);
+  
   assign WB_Data = wr_mux_result;
 
 endmodule:datapath

@@ -7,7 +7,8 @@ module data_memory
   (
     input  logic          clk,
     input  logic [2:0] func3,
-    memory_if.slave       mem_if
+    memory_if.slave       mem_if,
+	output logic [DW-1:0] rd
   );
 
 `ifdef __SIM__
@@ -37,17 +38,17 @@ module data_memory
     begin
       case(func3)
         3'b000: // LB
-            mem_if.rdata = {{24{temp_r_data[7]}}, temp_r_data[7:0]};
+            rd = {{24{temp_r_data[7]}}, temp_r_data[7:0]};
         3'b001: // LH
-            mem_if.rdata = {{16{temp_r_data[15]}}, temp_r_data[15:0]};
+            rd = {{16{temp_r_data[15]}}, temp_r_data[15:0]};
         3'b010: // LW
-            mem_if.rdata = temp_r_data;
+            rd = temp_r_data;
         3'b100: // LBU
-            mem_if.rdata = {24'b0, temp_r_data[7:0]};
+            rd = {24'b0, temp_r_data[7:0]};
         3'b101: // LHU
-            mem_if.rdata = {16'b0, temp_r_data[15:0]};
+            rd = {16'b0, temp_r_data[15:0]};
       default:
-        mem_if.rdata = temp_r_data; 
+        rd = temp_r_data; 
     endcase
   end
 

@@ -13,6 +13,10 @@ sub/datapath.sv
 sub/controlpath.sv
 sub/adder.sv
 sub/mux2.sv
+sub/mux4.sv
+sub/forwarding_unit.sv
+sub/hazard.sv
+sub/branch_unit.sv
 riscv.sv
 
 
