@@ -25,11 +25,17 @@ module datapath
   logic [DW-1:0] regf_dout1, regf_dout2;
   logic [RF_ADDR-1:0] regf_wr_addr;
   logic [RF_ADDR-1:0] regf_rd_addr1, regf_rd_addr2;
-  logic [DW-1:0] regf_wr_data;
+  //logic [DW-1:0] regf_wr_data;
   logic [DW-1:0] imm_val;
-  logic [DW-1:0] br_pc;
+  logic [DW-1:0] br_imm, br_pc, old_pc_4;
   logic regf_wr_en;
   logic pc_sel, reg_stall;
+  logic [1:0] FA_sel;
+  logic [1:0] FB_sel;
+  logic [DW-1:0] FA_result;
+  logic [DW-1:0] FB_result;
+  logic [DW-1:0] wr_mux_result, wr_mux_src;
+  logic [DW-1:0] alu_operand_b;
 
   IF_ID_REG A;
   ID_EX_REG B;
@@ -86,7 +92,7 @@ module datapath
     .rd_data2 ( regf_dout2     ),
     .wr_en    ( regf_wr_en     ),
     .wr_addr  ( regf_wr_addr   ),
-    .wr_data  ( regf_wr_data  )
+    .wr_data  ( wr_mux_result  )
   );
 
   // sign extend
@@ -120,7 +126,7 @@ module datapath
 		B.rw_sel <= 0;
 		B.ALUOp <= 0;
 		B.branch <= 0;
-		B.Jalr_or_Jal <= 0;	
+		B.jalr_sel <= 0;	
 		B.curr_instr <= A.curr_instr;
 	end
 	else
@@ -141,70 +147,20 @@ module datapath
 		B.MemWrite <= ctrl.mem_write;
 		B.rw_sel <= 0;
 		B.ALUOp <= ctrl.aluop;
-		B.branch <= ctrl.branch;
-		B.Jalr_or_Jal <= 0;	
+		B.branch <= ctrl.branch || ctrl.jal_mode;
+		B.jalr_sel <= ctrl.jalr_mode;	
 		B.curr_instr <= A.curr_instr;
 	end
   end
   
   // forwarding unit
+  fowarding_unit forwrdunit(B.rs1, B.rs2, C.rd, D.rd, C.RegWrite, D.RegWrite, FA_sel, FB_sel);
   
   // alu
+  mux4 #(DW) FAmux(B.rdata1, wr_mux_result, C.alu_result, B.rdata1, FA_sel, FA_result);
+  mux4 #(DW) FBmux(B.rdata2, wr_mux_result, C.alu_result, B.rdata2, FB_sel, FB_result);
+  mux2 #(DW) srcbmux(FB_result, B.imm_value, B.ALUSrc, alu_operand_b);
   
-  // EX_MEM_REG
-  
-  // data memory
-  
-  // MEM_WB_REG
-  
-  // last block
-
-  // J-type or U-type
-  logic jump;
-  logic [1:0] U_pc;
-  logic [AW-1:0] pc_imm;
-  logic [DW-1:0] w_j_data;
-  logic [DW-1:0] w_auipc_data;
-  logic [DW-1:0] w_lui_data;
-  assign jump = ctrl.jalr_mode || ctrl.jal_mode;
-  assign U_pc[0] = (inst.uinst.opcode == OP_AUIPC);
-  assign U_pc[1] = (inst.uinst.opcode == OP_LUI);
-  assign w_j_data = jump ? pc_4 : regf_wr_data;
-  assign w_auipc_data = U_pc[0] ? pc_imm : w_j_data;
-  assign w_lui_data = U_pc[1] ? imm_val : w_auipc_data;
-
-  
-
-  // Jump pc
-  logic [AW-1:0] pc_jalr;
-  logic [AW-1:0] pc_jal;
-  adder #( .WD(AW) )
-  jalradder
-  (
-    .a  (regf_dout1),
-    .b  (imm_val),
-    .y  (pc_jalr)
-  );
-  adder #( .WD(AW) )
-  jaladder
-  (
-    .a  (pc),
-    .b  (imm_val),
-    .y  (pc_jal)
-  );
-  mux2 #( .WD(AW) )
-  jalpc
-  (
-    .a  (pc_jal),
-    .b  (pc_jalr),
-    .s  (ctrl.jalr_mode),
-    .y  (pc_imm)
-  );
-  // End jump pc
-
-  assign aluop1 = regf_dout1;
-  assign aluop2 = ~ctrl.alu_src ?  regf_dout2 : imm_val;
-
   alu_operation_e  operation;
   logic       cont_beq;
   logic       cont_bnq;
@@ -212,63 +168,88 @@ module datapath
   logic       cont_bgt;
   logic [2:0] readdatasel;
   logic [1:0] writedatasel;
-
   alu_controller aluc_inst(
     .*,
-    .aluop  ( ctrl.aluop       ),
-    .funct3 ( inst.rinst.func3 ),
-    .funct7 ( inst.rinst.func7 )
+    .aluop  ( B.ALUOp ),
+    .funct3 ( B.func3 ),
+    .funct7 ( B.func7 )
   );
-
+  
   logic       alu_zero;
-
   alu
   #()
   alu_inst
   (
-    .operand_a ( aluop1    ),
-    .operand_b ( aluop2    ),
+    .operand_a ( FA_result    ),
+    .operand_b ( alu_operand_b    ),
     .operation ( operation ),
     .branch    ( alu_zero ),
     .result    ( alu_result )
   );
-  assign WB_Data = alu_result;
+  
+  // branch
+  logic Bran_sel;
+  assign Bran_sel = B.branch && alu_zero;
+  
+  BranchUnit #(PC_W) branchunit
+  (
+	.curr_pc ( B.curr_pc ),
+	.imm_value ( B.imm_value ),
+	.alu_result ( alu_result ),
+	.jalr_sel ( B.jalr_sel ),
+	.branch_sel ( Bran_sel ),
+	.pc_imm ( br_imm ),
+	.pc_4 ( old_pc_4 ),
+	.pc_branch ( br_pc ), 
+	.pc_sel ( pc_sel )
+  );
+  
+  // EX_MEM_REG
+  always @(posedge clk)
+  begin
+	if (rst_n)
+	begin
+		C.pc_imm <= 0;
+		C.pc_4 <= 0;
+		C.alu_result <= 0;
+		C.imm_value <= 0;
+		C.rdata2 <= 0;
+		C.rd <= 0;
+		C.func3 <= 0;
+		C.func7 <= 0;
+		C.rw_sel <= 0;
+		C.RegWrite <= 0;
+		C.MemRead <= 0;
+		C.MemWrite <= 0;
+		C.MemtoReg <= 0;
+		C.curr_instr <= 0;
+	end
+	else
+	begin
+		C.pc_imm <= br_imm;
+		C.pc_4 <= old_pc_4;
+		C.alu_result <= alu_result;
+		C.imm_value <= B.imm_value;
+		C.rdata2 <= FB_result;
+		C.rd <= B.rd;
+		C.func3 <= B.func3;
+		C.func7 <= B.func7;
+		C.rw_sel <= B.rw_sel;
+		C.RegWrite <= B.RegWrite;
+		C.MemRead <= B.MemRead;
+		C.MemWrite <= B.MemWrite;
+		C.MemtoReg <= B.MemtoReg;
+		C.curr_instr <= B.curr_instr;
+	end
+  end
+  
+  // data memory
+  
+  // MEM_WB_REG
+  
+  // last block
 
-  // Branch control
-  logic [DW-1:0] imm_sft;
-  assign imm_sft = imm_val << 1;
-  logic [AW-1:0] pc_N;
-  logic     bran_cont;
-  assign bran_cont = alu_zero && ctrl.branch;
-  
-  adder #( .WD(AW) )
-  pcadder
-  (
-    .a  (pc),
-    .b  (imm_sft),
-    .y  (pc_N)
-  );
-  
-  logic [AW-1:0] pc_F;
-  
-  mux2 #( .WD(AW) )
-  pcmux
-  (
-    .a  (pc_1),
-    .b  (pc_N),
-    .s  (bran_cont),
-    .y  (pc_F)
-  );
-  
-  // Jump control
-  mux2 #( .WD(AW) )
-  jmp_mux
-  (
-    .a  (pc_F),
-    .b  (pc_imm),
-    .s  (jump),
-    .y  (pc_next)
-  );
+ 
 
   // Data memory
   assign dmem_if.addr  = alu_result;

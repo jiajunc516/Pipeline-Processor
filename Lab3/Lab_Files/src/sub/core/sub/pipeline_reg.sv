@@ -26,7 +26,7 @@ typedef struct packed
 	logic [1:0] rw_sel; //Read or Write
 	logic [1:0]  ALUOp;
 	logic branch;
-	logic Jalr_or_Jal;
+	logic jalr_sel;
 	
 	logic [31:0] curr_instr; //current instruction-       
 	//future update according to controller design
@@ -34,15 +34,15 @@ typedef struct packed
 
 typedef struct packed
 {
-	logic [31:0] add_out; // for pc calculation pc+imm or pc+4
-	logic zero;
-	logic [31:0] alu_out;
-	logic [31:0] rdata2;
+	logic [31:0] pc_imm;
+	logic [31:0] pc_4;
+	logic [31:0] alu_result;
 	logic [31:0] imm_value;
+	logic [31:0] rdata2;
 	logic [4:0]  rd;
 	logic [2:0]  func3;
 	logic [6:0] func7;
-	logic [1:0] rw_sel; //??
+	logic [1:0] rw_sel; //Read or Write
 	logic RegWrite;
 	logic MemRead;
 	logic MemWrite;
