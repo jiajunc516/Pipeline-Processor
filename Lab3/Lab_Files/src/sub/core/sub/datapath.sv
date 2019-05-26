@@ -8,7 +8,7 @@ module datapath
     parameter RF_ADDR = 5,
     parameter DW = 32,
     parameter DM_ADDR = 9,
-	parameter AW = 32 //added here
+    parameter AW = 32 //added here
   )
   (
     input logic          clk,
@@ -21,7 +21,7 @@ module datapath
   );
 
   logic [PC_W-1:0] pc_4, pc_next;
-  logic [DW-1:0] aluop1, aluop2, alu_result;
+  logic [DW-1:0] alu_result;
   logic [DW-1:0] regf_dout1, regf_dout2;
   logic [RF_ADDR-1:0] regf_wr_addr;
   logic [RF_ADDR-1:0] regf_rd_addr1, regf_rd_addr2;
@@ -30,6 +30,7 @@ module datapath
   logic [DW-1:0] br_imm, br_pc, old_pc_4;
   logic regf_wr_en;
   logic pc_sel, reg_stall;
+  logic [1:0] RWsel;
   logic [1:0] FA_sel;
   logic [1:0] FB_sel;
   logic [DW-1:0] FA_result;
@@ -77,7 +78,7 @@ module datapath
   assign regf_rd_addr1 = A.curr_instr[19:15];
   assign regf_rd_addr2 = A.curr_instr[24:20];
   
-  //HarzardDetection detect(regf_rd_addr1, regf_rd_addr2, B.rd, B.MemRead, reg_stall);
+  HarzardDetection detect(regf_rd_addr1, regf_rd_addr2, B.rd, B.MemRead, reg_stall);
   
   // register file
   register_file
@@ -105,52 +106,55 @@ module datapath
   );
 
   // ID_EX_REG
+  assign RWsel[0] = (ctrl.jalr_mode || ctrl.jal_mode || (inst.rinst.opcode == OP_AUIPC));
+  assign RWsel[1] = ((inst.rinst.opcode == OP_LUI) || (inst.rinst.opcode == OP_AUIPC));
+  
   always @(posedge clk)
   begin
     if ((rst_n) || (reg_stall) || (pc_sel))
-	begin
-		B.curr_pc <= 0;
-		B.rdata1 <= 0;
-		B.rdata2 <= 0;
-		B.imm_value <= 0;
-		B.rs1 <= 0;
-		B.rs2 <= 0;
-		B.rd <= 0;
-		B.func3 <= 0;
-		B.func7 <= 0;
-		B.ALUSrc <= 0;
-		B.MemtoReg <= 0;
-		B.RegWrite <= 0;
-		B.MemRead <= 0;
-		B.MemWrite <= 0;
-		B.rw_sel <= 0;
-		B.ALUOp <= 0;
-		B.branch <= 0;
-		B.jalr_sel <= 0;	
-		B.curr_instr <= A.curr_instr;
-	end
-	else
-	begin
-		B.curr_pc <= A.curr_pc;
-		B.rdata1 <= regf_dout1;
-		B.rdata2 <= regf_dout2;
-		B.imm_value <= imm_val;
-		B.rs1 <= regf_rd_addr1;
-		B.rs2 <= regf_rd_addr2;
-		B.rd <= A.curr_instr[11:7];
-		B.func3 <= A.curr_instr[14:12];
-		B.func7 <= A.curr_instr[31:25];
-		B.ALUSrc <= ctrl.alu_src;
-		B.MemtoReg <= ctrl.mem2reg;
-		B.RegWrite <= ctrl.reg_write;
-		B.MemRead <= ctrl.mem_read;
-		B.MemWrite <= ctrl.mem_write;
-		B.rw_sel <= 0;
-		B.ALUOp <= ctrl.aluop;
-		B.branch <= ctrl.branch || ctrl.jal_mode;
-		B.jalr_sel <= ctrl.jalr_mode;	
-		B.curr_instr <= A.curr_instr;
-	end
+    begin
+        B.curr_pc <= 0;
+        B.rdata1 <= 0;
+        B.rdata2 <= 0;
+        B.imm_value <= 0;
+        B.rs1 <= 0;
+        B.rs2 <= 0;
+        B.rd <= 0;
+        B.func3 <= 0;
+        B.func7 <= 0;
+        B.ALUSrc <= 0;
+        B.MemtoReg <= 0;
+        B.RegWrite <= 0;
+        B.MemRead <= 0;
+        B.MemWrite <= 0;
+        B.rw_sel <= 0;
+        B.ALUOp <= 0;
+        B.branch <= 0;
+        B.jalr_sel <= 0;    
+        B.curr_instr <= A.curr_instr;
+    end
+    else
+    begin
+        B.curr_pc <= A.curr_pc;
+        B.rdata1 <= regf_dout1;
+        B.rdata2 <= regf_dout2;
+        B.imm_value <= imm_val;
+        B.rs1 <= regf_rd_addr1;
+        B.rs2 <= regf_rd_addr2;
+        B.rd <= A.curr_instr[11:7];
+        B.func3 <= A.curr_instr[14:12];
+        B.func7 <= A.curr_instr[31:25];
+        B.ALUSrc <= ctrl.alu_src;
+        B.MemtoReg <= ctrl.mem2reg;
+        B.RegWrite <= ctrl.reg_write;
+        B.MemRead <= ctrl.mem_read;
+        B.MemWrite <= ctrl.mem_write;
+        B.rw_sel <= RWsel;
+        B.ALUOp <= ctrl.aluop;
+        B.branch <= ctrl.branch || ctrl.jal_mode;
+        B.jalr_sel <= ctrl.jalr_mode;   
+        B.curr_instr <= A.curr_instr;
+    end
   end
   
   // forwarding unit
@@ -193,82 +197,96 @@ module datapath
   
   BranchUnit #(PC_W) branchunit
   (
-	.curr_pc ( B.curr_pc ),
-	.imm_value ( B.imm_value ),
-	.alu_result ( alu_result ),
-	.jalr_sel ( B.jalr_sel ),
-	.branch_sel ( Bran_sel ),
-	.pc_imm ( br_imm ),
-	.pc_4 ( old_pc_4 ),
-	.pc_branch ( br_pc ), 
-	.pc_sel ( pc_sel )
+    .curr_pc ( B.curr_pc ),
+    .imm_value ( B.imm_value ),
+    .alu_result ( alu_result ),
+    .jalr_sel ( B.jalr_sel ),
+    .branch_sel ( Bran_sel ),
+    .pc_imm ( br_imm ),
+    .pc_4 ( old_pc_4 ),
+    .pc_branch ( br_pc ), 
+    .pc_sel ( pc_sel )
   );
   
   // EX_MEM_REG
   always @(posedge clk)
   begin
-	if (rst_n)
-	begin
-		C.pc_imm <= 0;
-		C.pc_4 <= 0;
-		C.alu_result <= 0;
-		C.imm_value <= 0;
-		C.rdata2 <= 0;
-		C.rd <= 0;
-		C.func3 <= 0;
-		C.func7 <= 0;
-		C.rw_sel <= 0;
-		C.RegWrite <= 0;
-		C.MemRead <= 0;
-		C.MemWrite <= 0;
-		C.MemtoReg <= 0;
-		C.curr_instr <= 0;
-	end
-	else
-	begin
-		C.pc_imm <= br_imm;
-		C.pc_4 <= old_pc_4;
-		C.alu_result <= alu_result;
-		C.imm_value <= B.imm_value;
-		C.rdata2 <= FB_result;
-		C.rd <= B.rd;
-		C.func3 <= B.func3;
-		C.func7 <= B.func7;
-		C.rw_sel <= B.rw_sel;
-		C.RegWrite <= B.RegWrite;
-		C.MemRead <= B.MemRead;
-		C.MemWrite <= B.MemWrite;
-		C.MemtoReg <= B.MemtoReg;
-		C.curr_instr <= B.curr_instr;
-	end
+    if (rst_n)
+    begin
+        C.pc_imm <= 0;
+        C.pc_4 <= 0;
+        C.alu_result <= 0;
+        C.imm_value <= 0;
+        C.rdata2 <= 0;
+        C.rd <= 0;
+        C.func3 <= 0;
+        C.func7 <= 0;
+        C.rw_sel <= 0;
+        C.RegWrite <= 0;
+        C.MemRead <= 0;
+        C.MemWrite <= 0;
+        C.MemtoReg <= 0;
+        C.curr_instr <= 0;
+    end
+    else
+    begin
+        C.pc_imm <= br_imm;
+        C.pc_4 <= old_pc_4;
+        C.alu_result <= alu_result;
+        C.imm_value <= B.imm_value;
+        C.rdata2 <= FB_result;
+        C.rd <= B.rd;
+        C.func3 <= B.func3;
+        C.func7 <= B.func7;
+        C.rw_sel <= B.rw_sel;
+        C.RegWrite <= B.RegWrite;
+        C.MemRead <= B.MemRead;
+        C.MemWrite <= B.MemWrite;
+        C.MemtoReg <= B.MemtoReg;
+        C.curr_instr <= B.curr_instr;
+    end
   end
   
   // data memory
+  assign dmem_if.wr    = ctrl.mem_write;
+  assign dmem_if.addr  = C.alu_result[DM_ADDR-1:0];
+  assign dmem_if.wdata = C.rdata2;
+  data_memory #(.AW(DM_ADDR), .DW(DW)) data_mem(clk, C.func3, dmem_if);
   
   // MEM_WB_REG
+  always @(posedge clk)
+  begin
+    if (rst_n)
+    begin
+        D.pc_imm <= 0;
+        D.pc_4 <= 0;
+        D.mem_read_data <= 0;
+        D.alu_result <= 0;
+        D.imm_value <= 0;
+        D.rd <= 0;
+        D.rw_sel <= 0;
+        D.RegWrite <= 0;
+        D.MemtoReg <= 0;
+        D.curr_instr <= 0;
+    end
+    else
+    begin
+        D.pc_imm <= C.pc_imm;
+        D.pc_4 <= C.pc_4;
+        D.mem_read_data <= dmem_if.rdata;
+        D.alu_result <= C.alu_result;
+        D.imm_value <= C.imm_value;
+        D.rd <= C.rd;
+        D.rw_sel <= C.rw_sel;
+        D.RegWrite <= C.RegWrite;
+        D.MemtoReg <= C.MemtoReg;
+        D.curr_instr <= C.curr_instr;
+    end
+  end
   
   // last block
-
- 
-
-  // Data memory
-  assign dmem_if.addr  = alu_result;
-  assign dmem_if.wr    = ctrl.mem_write;
-  //assign dmem_if.wdata = regf_dout2;
-
-  // Store data
-  always_comb
-    begin
-      case(inst.sinst.func3)
-        3'b000: // SB
-            dmem_if.wdata = {{24{regf_dout2[7]}}, regf_dout2[7:0]};
-        3'b001: // SH
-            dmem_if.wdata = {{16{regf_dout2[15]}}, regf_dout2[15:0]};
-        3'b010: // SW
-            dmem_if.wdata = regf_dout2;
-      default:
-        dmem_if.wdata = regf_dout2; 
-    endcase
-  end
+  mux2 #(32) resmux(D.alu_result, D.mem_read_data, D.MemtoReg, wr_mux_src);
+  mux4 #(32) wrsmux(wr_mux_src, D.pc_4, D.imm_value, D.pc_imm, D.rw_sel, wr_mux_result);
+  assign WB_Data = wr_mux_result;
 
 endmodule:datapath
