@@ -12,7 +12,7 @@ module program_counter
 
   always_ff @(posedge clk)
   begin
-    if( rst_n )
+    if( !rst_n )
       pc <= '0;
     else if (!stall)
       pc <= din;

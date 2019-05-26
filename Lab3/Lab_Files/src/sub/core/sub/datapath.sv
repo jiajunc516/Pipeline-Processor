@@ -61,7 +61,7 @@ module datapath
   // IF_ID_REG
   always @(posedge clk)
   begin
-    if ((rst_n) || (pc_sel))
+    if ((!rst_n) || (pc_sel))
     begin
         A.curr_pc <= 0;
         A.curr_instr <= 0;
@@ -69,14 +69,14 @@ module datapath
     else if (!reg_stall)
 	begin
         A.curr_pc <= cur_pc;
-        A.curr_instr <= inst;
+        A.curr_instr <= inst.bits;
     end
   end
 
   assign pc = cur_pc;
   // hazard detection unit
-  assign regf_wr_en   = D.RegWrite;
-  assign regf_wr_addr = D.rd;
+  //assign regf_wr_en   = D.RegWrite;
+  //assign regf_wr_addr = D.rd;
   assign regf_rd_addr1 = A.curr_instr[19:15];
   assign regf_rd_addr2 = A.curr_instr[24:20];
   
@@ -93,8 +93,8 @@ module datapath
     .rd_addr2 ( regf_rd_addr2 ),
     .rd_data1 ( regf_dout1     ),
     .rd_data2 ( regf_dout2     ),
-    .wr_en    ( regf_wr_en     ),
-    .wr_addr  ( regf_wr_addr   ),
+    .wr_en    ( D.RegWrite     ),
+    .wr_addr  ( D.rd   ),
     .wr_data  ( wr_mux_result  )
   );
 
@@ -113,7 +113,7 @@ module datapath
   
   always @(posedge clk)
   begin
-    if ((rst_n) || (reg_stall) || (pc_sel))
+    if ((!rst_n) || (reg_stall) || (pc_sel))
     begin
         B.curr_pc <= 0;
         B.rdata1 <= 0;
@@ -213,7 +213,7 @@ module datapath
   // EX_MEM_REG
   always @(posedge clk)
   begin
-    if (rst_n)
+    if (!rst_n)
     begin
         C.pc_imm <= 0;
         C.pc_4 <= 0;
@@ -258,7 +258,7 @@ module datapath
   // MEM_WB_REG
   always @(posedge clk)
   begin
-    if (rst_n)
+    if (!rst_n)
     begin
         D.pc_imm <= 0;
         D.pc_4 <= 0;
