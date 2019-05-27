@@ -18,7 +18,7 @@ module BranchUnit
 	 
 	 assign pc_32 = {23'b0, curr_pc};
 	 assign pc_imm = pc_32 + imm_value;
-	 assign pc_4 = pc_32 + 32'b100;
+	 assign pc_4 = pc_32 + 32'b001; // Byte - 9'b100, Line - 9'b001
 	 
 	 assign pc_branch = (jalr_sel) ? alu_result : (branch_sel) ? pc_imm : 32'b0;
 	 assign pc_sel = jalr_sel || branch_sel;

@@ -2,7 +2,7 @@
 interface controller_if();
   logic       alu_src;     /* 0: the second alu operand comes from the second register file output (read data 2);
    1: the second alu operand is the sign-extended; lower 16 bits of the instruction. */
-  logic [1:0] mem2reg;   /* 0: the value fed to the register write data input comes from the alu.
+  logic       mem2reg;   /* 0: the value fed to the register write data input comes from the alu.
    1: the value fed to the register write data input comes from the data memory. */
   logic       reg_write;   // the register on the write register input is written with the value on the write data input
   logic       mem_read;    // data memory contents designated by the address input are put on the read data output

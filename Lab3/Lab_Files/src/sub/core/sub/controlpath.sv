@@ -17,11 +17,11 @@ module controlpath (
 
 
     case( inst.rinst.opcode )
-      OP_LOAD , OP_LOAD_FP : ctrl.mem2reg = 2'b01;
-      OP_AUIPC             : ctrl.mem2reg = 2'b10;
-      OP_JAL  , OP_JALR    : ctrl.mem2reg = 2'b11;
+      OP_LOAD , OP_LOAD_FP : ctrl.mem2reg = 1'b1;
+      //OP_AUIPC             : ctrl.mem2reg = 2'b10;
+      //OP_JAL  , OP_JALR    : ctrl.mem2reg = 2'b11;
       default:
-        ctrl.mem2reg = 2'b00;
+        ctrl.mem2reg = 1'b0;
     endcase
 
     case( inst.rinst.opcode )

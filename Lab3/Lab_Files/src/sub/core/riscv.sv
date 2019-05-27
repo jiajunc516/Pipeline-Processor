@@ -47,12 +47,12 @@ module riscv
     .dmem_if ( dmem_if )
   );
 
-  data_memory
-  #()
-  dmem_inst(
-    .clk    ( clk ),
-	.func3  (inst.iinst.func3),
-    .mem_if ( dmem_if  )
-  );
+//  data_memory
+//  #()
+//  dmem_inst(
+//    .clk    ( clk ),
+//	.func3  (inst.iinst.func3),
+//    .mem_if ( dmem_if  )
+//  );
 
 endmodule:riscv

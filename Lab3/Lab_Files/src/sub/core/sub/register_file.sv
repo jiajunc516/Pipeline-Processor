@@ -21,7 +21,7 @@ module register_file
   assign rd_data1 = regmem[rd_addr1];
   assign rd_data2 = regmem[rd_addr2];
 
-  always_ff @(posedge clk)
+  always_ff @(negedge clk)
     begin
       if(~rst_n)
         for(int i=0; i<2**AW; i=i+1)
