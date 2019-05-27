@@ -45,7 +45,7 @@ module datapath
   MEM_WB_REG D;
 
   // next pc
-  adder #(PC_W) pcadd(cur_pc, 9'b100, pc_4);
+  adder #(PC_W) pcadd(cur_pc, 9'b001, pc_4); // Byte - 9'b100, Line - 9'b001
   mux2 #(PC_W) pcmux(pc_4, br_pc[PC_W-1:0], pc_sel, pc_next);
   
   program_counter
@@ -57,7 +57,8 @@ module datapath
     .din    ( pc_next ),
     .pc     ( cur_pc      )
   );
-
+  assign pc = cur_pc;
+  
   // IF_ID_REG
   always @(posedge clk)
   begin
@@ -65,22 +66,24 @@ module datapath
     begin
         A.curr_pc <= 0;
         A.curr_instr <= 0;
+		A.ALUSrc <= 0;
     end
     else if (!reg_stall)
 	begin
-        A.curr_pc <= cur_pc;
-        A.curr_instr <= inst.bits;
+        A.curr_pc <= pc;
+        A.curr_instr <= inst;
+		A.ALUSrc <= ctrl.alu_src;
     end
   end
 
-  assign pc = cur_pc;
+  
   // hazard detection unit
   //assign regf_wr_en   = D.RegWrite;
   //assign regf_wr_addr = D.rd;
-  assign regf_rd_addr1 = A.curr_instr[19:15];
-  assign regf_rd_addr2 = A.curr_instr[24:20];
+  //assign regf_rd_addr1 = A.curr_instr[19:15];
+  //assign regf_rd_addr2 = A.curr_instr[24:20];
   
-  HazardDetection detect(regf_rd_addr1, regf_rd_addr2, B.rd, B.MemRead, reg_stall);
+  HazardDetection detect(A.curr_instr[19:15], A.curr_instr[24:20], B.rd, B.MemRead, reg_stall);
   
   // register file
   register_file
@@ -89,8 +92,8 @@ module datapath
   (
     .clk      ( clk            ),
     .rst_n    ( rst_n          ),
-    .rd_addr1 ( regf_rd_addr1 ),
-    .rd_addr2 ( regf_rd_addr2 ),
+    .rd_addr1 ( A.curr_instr[19:15] ),
+    .rd_addr2 ( A.curr_instr[24:20] ),
     .rd_data1 ( regf_dout1     ),
     .rd_data2 ( regf_dout2     ),
     .wr_en    ( D.RegWrite     ),
@@ -141,12 +144,12 @@ module datapath
         B.rdata1 <= regf_dout1;
         B.rdata2 <= regf_dout2;
         B.imm_value <= imm_val;
-        B.rs1 <= regf_rd_addr1;
-        B.rs2 <= regf_rd_addr2;
+        B.rs1 <= A.curr_instr[19:15];
+        B.rs2 <= A.curr_instr[24:20];
         B.rd <= A.curr_instr[11:7];
         B.func3 <= A.curr_instr[14:12];
         B.func7 <= A.curr_instr[31:25];
-        B.ALUSrc <= ctrl.alu_src;
+        B.ALUSrc <= A.ALUSrc; // Bug Occur
         B.MemtoReg <= ctrl.mem2reg;
         B.RegWrite <= ctrl.reg_write;
         B.MemRead <= ctrl.mem_read;

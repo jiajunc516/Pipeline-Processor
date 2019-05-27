@@ -2,6 +2,7 @@ typedef struct packed
 {
     logic [8:0] curr_pc;
     logic [31:0] curr_instr;
+	logic ALUSrc;
 }IF_ID_REG;
 
 typedef struct packed
