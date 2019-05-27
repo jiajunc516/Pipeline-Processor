@@ -3,6 +3,14 @@ typedef struct packed
     logic [8:0] curr_pc;
     logic [31:0] curr_instr;
 	logic ALUSrc;
+    logic MemtoReg;
+    logic RegWrite;
+    logic MemRead;
+    logic MemWrite;
+    logic [1:0] rw_sel; //Read or Write
+    logic [1:0]  ALUOp;
+    logic branch;
+    logic jalr_sel;
 }IF_ID_REG;
 
 typedef struct packed

@@ -60,6 +60,9 @@ module datapath
   assign pc = cur_pc;
   
   // IF_ID_REG
+  assign RWsel[0] = (ctrl.jalr_mode || ctrl.jal_mode || (inst.rinst.opcode == OP_AUIPC));
+  assign RWsel[1] = ((inst.rinst.opcode == OP_LUI) || (inst.rinst.opcode == OP_AUIPC));
+  
   always @(posedge clk)
   begin
     if ((!rst_n) || (pc_sel))
@@ -67,12 +70,28 @@ module datapath
         A.curr_pc <= 0;
         A.curr_instr <= 0;
 		A.ALUSrc <= 0;
+		A.MemtoReg <= 0;
+        A.RegWrite <= 0;
+        A.MemRead <= 0;
+        A.MemWrite <= 0;
+        A.rw_sel <= 0;
+        A.ALUOp <= 0;
+        A.branch <= 0;
+        A.jalr_sel <= 0;   
     end
     else if (!reg_stall)
 	begin
         A.curr_pc <= pc;
         A.curr_instr <= inst;
 		A.ALUSrc <= ctrl.alu_src;
+		A.MemtoReg <= ctrl.mem2reg;
+        A.RegWrite <= ctrl.reg_write;
+        A.MemRead <= ctrl.mem_read;
+        A.MemWrite <= ctrl.mem_write;
+        A.rw_sel <= RWsel;
+        A.ALUOp <= ctrl.aluop;
+        A.branch <= ctrl.branch || ctrl.jal_mode;
+        A.jalr_sel <= ctrl.jalr_mode;  
     end
   end
 
@@ -111,8 +130,6 @@ module datapath
   );
 
   // ID_EX_REG
-  assign RWsel[0] = (ctrl.jalr_mode || ctrl.jal_mode || (inst.rinst.opcode == OP_AUIPC));
-  assign RWsel[1] = ((inst.rinst.opcode == OP_LUI) || (inst.rinst.opcode == OP_AUIPC));
   
   always @(posedge clk)
   begin
@@ -149,15 +166,15 @@ module datapath
         B.rd <= A.curr_instr[11:7];
         B.func3 <= A.curr_instr[14:12];
         B.func7 <= A.curr_instr[31:25];
-        B.ALUSrc <= A.ALUSrc; // Bug Occur
-        B.MemtoReg <= ctrl.mem2reg;
-        B.RegWrite <= ctrl.reg_write;
-        B.MemRead <= ctrl.mem_read;
-        B.MemWrite <= ctrl.mem_write;
-        B.rw_sel <= RWsel;
-        B.ALUOp <= ctrl.aluop;
-        B.branch <= ctrl.branch || ctrl.jal_mode;
-        B.jalr_sel <= ctrl.jalr_mode;   
+        B.ALUSrc <= A.ALUSrc;
+        B.MemtoReg <= A.MemtoReg;
+        B.RegWrite <= A.RegWrite;
+        B.MemRead <= A.MemRead;
+        B.MemWrite <= A.MemWrite;
+        B.rw_sel <= A.rw_sel;
+        B.ALUOp <= A.ALUOp;
+        B.branch <= A.branch;
+        B.jalr_sel <= A.jalr_sel;   
         B.curr_instr <= A.curr_instr;
     end
   end
@@ -253,7 +270,7 @@ module datapath
   end
   
   // data memory
-  assign dmem_if.wr    = ctrl.mem_write;
+  assign dmem_if.wr    = C.MemWrite;
   assign dmem_if.addr  = C.alu_result[DM_ADDR-1:0];
   assign dmem_if.wdata = C.rdata2;
   data_memory #(.AW(DM_ADDR), .DW(DW)) data_mem(clk, C.func3, dmem_if, ReadData);
