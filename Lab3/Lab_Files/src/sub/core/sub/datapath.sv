@@ -81,7 +81,7 @@ module datapath
     end
     else if (!reg_stall)
 	begin
-        A.curr_pc <= pc;
+        A.curr_pc <= cur_pc;
         A.curr_instr <= inst;
 		A.ALUSrc <= ctrl.alu_src;
 		A.MemtoReg <= ctrl.mem2reg;
