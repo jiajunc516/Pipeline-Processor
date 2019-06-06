@@ -17,6 +17,7 @@ sub/mux4.sv
 sub/forwarding_unit.sv
 sub/hazard.sv
 sub/branch_unit.sv
+sub/sub_data_memory.sv
 riscv.sv
 
 
