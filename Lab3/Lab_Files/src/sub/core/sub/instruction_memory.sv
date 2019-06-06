@@ -31,8 +31,8 @@ module instruction_memory
          .WEB     ( ~wr    ),
          .OEB     ( wr     ),
          .CSB     ( 1'b0   ),
-         .I       ( wd     ),
-         .O       ( rdi_en )
+         .I       ( wdata  ),
+         .O       ( rdata )
          );
 
 `endif

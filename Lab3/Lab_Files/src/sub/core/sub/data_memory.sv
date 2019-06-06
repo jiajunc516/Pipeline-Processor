@@ -6,14 +6,17 @@ module data_memory
   )
   (
     input  logic          clk,
-    input  logic [2:0] func3,
-    memory_if.slave       mem_if,
-	output logic [DW-1:0] rd
+    //input  logic [2:0] func3,
+    memory_if.slave       mem_if
+	//output logic [DW-1:0] rd
   );
 
 `ifdef __SIM__
 
   logic [DW-1:0] mem [2**AW];
+  
+  logic [2:0] func3;
+  assign func3 = mem_if.byte_m1;
 
   always_ff @(posedge clk)
   begin
@@ -38,17 +41,17 @@ module data_memory
     begin
       case(func3)
         3'b000: // LB
-            rd = {{24{temp_r_data[7]}}, temp_r_data[7:0]};
+            mem_if.rdata = {{24{temp_r_data[7]}}, temp_r_data[7:0]};
         3'b001: // LH
-            rd = {{16{temp_r_data[15]}}, temp_r_data[15:0]};
+            mem_if.rdata = {{16{temp_r_data[15]}}, temp_r_data[15:0]};
         3'b010: // LW
-            rd = temp_r_data;
+            mem_if.rdata = temp_r_data;
         3'b100: // LBU
-            rd = {24'b0, temp_r_data[7:0]};
+            mem_if.rdata = {24'b0, temp_r_data[7:0]};
         3'b101: // LHU
-            rd = {16'b0, temp_r_data[15:0]};
+            mem_if.rdata = {16'b0, temp_r_data[15:0]};
       default:
-        rd = temp_r_data; 
+        mem_if.rdata = temp_r_data; 
     endcase
   end
 

@@ -1,4 +1,10 @@
-module design_top(
+module design_top
+	#(
+		CORES = 1,
+		DATA_WIDTH = 32,
+		ADDR_WIDTH = 32
+	)
+(
     clk,
     rst_n,
 
@@ -10,7 +16,15 @@ module design_top(
     apb3_psel,
     apb3_penable,
     apb3_pwdata,
-    apb3_prdata
+    apb3_prdata,
+	
+	addr,
+	data,
+	valid,
+	
+	wb_addr,
+	wb_data,
+	wb_en
   );
 
   input logic clk;
@@ -25,6 +39,14 @@ module design_top(
   output logic apb3_pready;
   output logic apb3_pslverr;
   output logic apb3_prdata;
+  
+  output logic [5-1:0] wb_addr;
+  output logic [DATA_WIDTH-1:0] wb_data;
+  output logic wb_en;
+  
+  input logic [31:0] addr;
+  input logic [31:0] data;
+  input logic valid;
 
 
 riscv #() riscv_inst(
