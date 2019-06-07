@@ -1,0 +1,163 @@
+Loading db file '/ecelib/linware/synopsys15/dc/libraries/syn/gtech.db'
+Loading db file '/ecelib/linware/synopsys15/dc/libraries/syn/standard.sldb'
+  Loading link library 'saed32lvt_tt1p05vn40c'
+  Loading link library 'saed32sram_tt1p05vn40c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'design_top'.
+Information: Building the design 'riscv'. (HDL-193)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.alu_src' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.mem2reg' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.reg_write' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.mem_read' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.mem_write' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.write_enable' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.read_enable' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.aluop' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.branch' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.jalr_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.jal_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.lui_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:34: Variables crossing hierarchy: interface content 'ctrl_if.writeback' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.alu_src' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.mem2reg' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.reg_write' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.mem_read' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.mem_write' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.write_enable' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.read_enable' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.aluop' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.branch' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.jalr_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.jal_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.lui_mode' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'ctrl_if.writeback' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'dmem_if.wr' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'dmem_if.addr' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'dmem_if.wdata' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'dmem_if.rdata' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:41: Variables crossing hierarchy: interface content 'dmem_if.byte_m1' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:52: Variables crossing hierarchy: interface content 'dmem_if.wr' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:52: Variables crossing hierarchy: interface content 'dmem_if.addr' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:52: Variables crossing hierarchy: interface content 'dmem_if.wdata' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:52: Variables crossing hierarchy: interface content 'dmem_if.rdata' may become connected to an inout port. (VER-735)
+Information:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/riscv.sv:52: Variables crossing hierarchy: interface content 'dmem_if.byte_m1' may become connected to an inout port. (VER-735)
+Presto compilation completed successfully.
+Information: Building the design 'instruction_memory'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'controlpath' instantiated from design 'riscv' with
+	the parameters "|((N%inst%)(N%ctrl%I%WORK/controller_if%%))". (HDL-193)
+
+Statistics for case statements in always block at line 8 in file
+	'/users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/controlpath.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            19            |    auto/auto     |
+|            27            |    auto/auto     |
+|            36            |    auto/auto     |
+===============================================
+Presto compilation completed successfully.
+Information: Building the design 'datapath' instantiated from design 'riscv' with
+	the parameters "AW=32|((N%clk%)(N%rst_n%)(N%pc%)(N%inst%)(N%ctrl%I%WORK/controller_if%%)(N%dmem_if%I%WORK/memory_if%%))". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'data_memory' instantiated from design 'riscv' with
+	the parameters "|((N%clk%)(N%mem_if%I%WORK/memory_if%%))". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'program_counter' instantiated from design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__' with
+	the parameters "AW=32". (HDL-193)
+
+Inferred memory devices in process
+	in routine program_counter_AW32 line 13 in file
+		'/users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/program_counter.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       pc_reg        | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'register_file' instantiated from design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__' with
+	the parameters "AW=5,DW=32". (HDL-193)
+
+Inferred memory devices in process
+	in routine register_file_AW5_DW32 line 24 in file
+		'/users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/register_file.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     regmem_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+====================================================================
+|     block name/line       | Inputs | Outputs | # sel inputs | MB |
+====================================================================
+| register_file_AW5_DW32/21 |   32   |   32    |      5       | N  |
+| register_file_AW5_DW32/22 |   32   |   32    |      5       | N  |
+====================================================================
+Presto compilation completed successfully.
+Information: Building the design 'immediate_generator' instantiated from design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__' with
+	the parameters "DW=32". (HDL-193)
+
+Statistics for case statements in always block at line 14 in file
+	'/users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/immediate_generator.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            16            |    auto/auto     |
+===============================================
+Presto compilation completed successfully.
+Information: Building the design 'adder' instantiated from design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__' with
+	the parameters "WD=32". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'mux2' instantiated from design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__' with
+	the parameters "WD=32". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'alu_controller'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'alu'. (HDL-193)
+Warning:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/alu.sv:27: signed to unsigned assignment occurs. (VER-318)
+Warning:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/alu.sv:39: signed to unsigned assignment occurs. (VER-318)
+Warning:  /users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/alu.sv:19: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 15 in file
+	'/users/ugrad/2018/winter/jiajunc/Complete-RISC-V-Processor/Lab2/Lab_Files/src/sub/core/sub/alu.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            19            |    auto/auto     |
+===============================================
+Presto compilation completed successfully.
+1
