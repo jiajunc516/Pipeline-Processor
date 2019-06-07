@@ -1,0 +1,52 @@
+Information: Propagating switching activity (medium effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+Warning: Design has unannotated black box outputs. (PWR-428)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort medium
+        -verbose
+Design : design_top
+Version: J-2014.09-SP4
+Date   : Fri Jun  7 14:46:07 2019
+****************************************
+
+
+Library(s) Used:
+
+    saed32lvt_tt1p05vn40c (File: /users/ugrad2/2012/spring/pooriam/libraries/saed32lvt_tt1p05vn40c.db)
+    gtech (File: /ecelib/linware/synopsys15/dc/libraries/syn/gtech.db)
+    saed32sram_tt1p05vn40c (File: /users/ugrad2/2012/spring/pooriam/libraries/saed32sram_tt1p05vn40c.db)
+
+
+Operating Conditions: tt1p05vn40c   Library: saed32lvt_tt1p05vn40c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+design_top             ForQA             saed32lvt_tt1p05vn40c
+instruction_memory     ForQA             saed32lvt_tt1p05vn40c
+datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__ 35000 saed32lvt_tt1p05vn40c
+register_file_AW5_DW32 16000             saed32lvt_tt1p05vn40c
+
+
+Global Operating Voltage = 1.05 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+design_top                               22.245 1.57e+03 1.34e+10 1.50e+04 100.0
+  riscv_inst/imem_inst (instruction_memory)    1.708   82.089    0.000   83.797   0.6
+  riscv_inst/dp_inst (datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__)   19.890 1.37e+03 1.34e+10 1.48e+04  98.5
+    regf_inst (register_file_AW5_DW32)   13.154 1.31e+03 1.04e+10 1.17e+04  78.3
+1

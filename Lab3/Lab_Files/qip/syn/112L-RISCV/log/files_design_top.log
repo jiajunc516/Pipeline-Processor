@@ -1,0 +1,32 @@
+analyze -format sverilog { /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/riscv_package.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/controller_if.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/memory_if.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/program_counter.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/immediate_generator.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/instruction_memory.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/data_memory.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/alu_controller.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/alu.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/register_file.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/datapath.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/controlpath.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/adder.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/mux2.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/mux4.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/forwarding_unit.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/hazard.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/branch_unit.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/sub_data_memory.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/riscv.sv /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/design_top.sv }
+Running PRESTO HDLC
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/riscv_package.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/controller_if.sv
+Information:  /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/controller_if.sv:2: List () of one, unnamed, port is ignored. (VER-988)
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/memory_if.sv
+Information:  /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/memory_if.sv:1: List () of one, unnamed, port is ignored. (VER-988)
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/program_counter.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/immediate_generator.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/instruction_memory.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/data_memory.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/alu_controller.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/alu.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/register_file.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/datapath.sv
+Opening include file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/pipeline_reg.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/controlpath.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/adder.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/mux2.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/mux4.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/forwarding_unit.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/hazard.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/branch_unit.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/sub/sub_data_memory.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/sub/core/riscv.sv
+Compiling source file /users/ugrad/2018/winter/jiajunc/Pipeline-Processor/Lab3/Lab_Files/src/design_top.sv
+Presto compilation completed successfully.
+Loading db file '/users/ugrad2/2012/spring/pooriam/libraries/saed32lvt_tt1p05vn40c.db'
+Loading db file '/users/ugrad2/2012/spring/pooriam/libraries/saed32sram_tt1p05vn40c.db'
+Loading db file '/ecelib/linware/synopsys15/dc/libraries/syn/dw_foundation.sldb'
+1
+1

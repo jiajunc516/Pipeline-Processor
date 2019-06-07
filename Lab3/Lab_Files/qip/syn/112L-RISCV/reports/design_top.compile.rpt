@@ -1,0 +1,322 @@
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/users/ugrad2/2012/spring/pooriam/libraries/saed32lvt_tt1p05vn40c.db"
+Library analysis succeeded.
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | J-2014.09-DWBB_201409.4 |     *     |
+| Licensed DW Building Blocks        | J-2014.09-DWBB_201409.4 |     *     |
+============================================================================
+
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 326 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Loaded alib file './alib-52/saed32lvt_tt1p05vn40c.db.alib'
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy riscv_inst/cp_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dmem_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/pcadd before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/pcmux before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/pc_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/detect before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/immgen_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/forwrdunit before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/FAmux before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/FBmux before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/srcbmux before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/aluc_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/alu_inst before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/branchunit before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/resmux before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy riscv_inst/dp_inst/wrsmux before Pass 1 (OPT-776)
+Information: Ungrouping 16 of 21 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'register_file_AW5_DW32'
+ Implement Synthetic for 'register_file_AW5_DW32'.
+  Processing 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__'
+Information: Added key list 'DesignWare' to design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__'. (DDB-72)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][30]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][29]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][28]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][27]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][26]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][25]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][24]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][23]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][22]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][21]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][20]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][19]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][18]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][17]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][16]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][15]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][14]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][13]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][12]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][11]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+Information: In design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__', the register 'C_reg[pc_4][10]' is removed because it is merged to 'C_reg[pc_4][31]'. (OPT-1215)
+ Implement Synthetic for 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__'.
+Information: The register 'C_reg[pc_4][31]' is a constant and will be removed. (OPT-1206)
+  Processing 'riscv'
+  Processing 'design_top'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'PMT3_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'PMT2_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'PMT1_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT3_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT2_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT1_LVT' in the library 'saed32lvt_tt1p05vn40c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Information: Complementing port 'wb_addr[1]' in design 'riscv'.
+	 The new name of the port is 'wb_addr[1]_BAR'. (OPT-319)
+Information: Complementing port 'wb_addr[1]' in design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__'.
+	 The new name of the port is 'wb_addr[1]_BAR'. (OPT-319)
+Information: Complementing port 'wr_addr[1]' in design 'register_file_AW5_DW32'.
+	 The new name of the port is 'wr_addr[1]_BAR'. (OPT-319)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'riscv_inst/dp_inst/D_reg[pc_4][31]' is a constant and will be removed. (OPT-1206)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+
+Threshold voltage group cell usage:
+>> saed32cell_lvt 99.98%, undefined 0.02%
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+  Mapping Optimization (Phase 1)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:26  129950.2      0.00       0.0      26.0                           23373234176.0000
+    0:00:26  129950.2      0.00       0.0      26.0                           23373234176.0000
+    0:00:26  129950.2      0.00       0.0      26.0                           23373234176.0000
+    0:00:26  129950.2      0.00       0.0      26.0                           23373234176.0000
+  Re-synthesis Optimization (Phase 1)
+  Re-synthesis Optimization (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:31  128919.6      0.00       0.0      13.5                           20499292160.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+
+Threshold voltage group cell usage:
+>> saed32cell_lvt 99.98%, undefined 0.02%
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:32  129008.3      0.00       0.0      12.4                           19971319808.0000
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+    0:00:33  129017.2      0.00       0.0       0.0                           19996559360.0000
+    0:00:33  129017.2      0.00       0.0       0.0                           19996559360.0000
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:33  129017.2      0.00       0.0       0.0                           19996559360.0000
+    0:00:34  129012.1      0.00       0.0       0.0                           19987046400.0000
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+
+Threshold voltage group cell usage:
+>> saed32cell_lvt 99.98%, undefined 0.02%
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:35  129012.1      0.00       0.0       0.0                           19987046400.0000
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+Information: Complementing port 'wb_addr[1]_BAR' in design 'riscv'.
+	 The new name of the port is 'wb_addr[1]'. (OPT-319)
+Information: Complementing port 'wb_addr[1]_BAR' in design 'datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__'.
+	 The new name of the port is 'wb_addr[1]'. (OPT-319)
+Information: Complementing port 'wr_addr[1]_BAR' in design 'register_file_AW5_DW32'.
+	 The new name of the port is 'wr_addr[1]'. (OPT-319)
+    0:00:36  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:36  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:37  128850.9      0.00       0.0       0.0                           19958165504.0000
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+Warning: Removing don't touch or size only GTECH cell riscv_inst/imem_inst/I_0, because it is not driving any load. (OPT-112)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:38  128850.9      0.00       0.0       0.0                           19958165504.0000
+    0:00:39  129772.4      0.00       0.0       0.0                           20098772992.0000
+    0:00:39  129772.4      0.00       0.0       0.0                           20098772992.0000
+    0:00:40  129758.7      0.00       0.0       0.0                           19966724096.0000
+    0:00:40  129758.7      0.00       0.0       0.0                           19966724096.0000
+    0:00:40  130033.5      0.00       0.0       4.1                           19923277824.0000
+Loading db file '/users/ugrad2/2012/spring/pooriam/libraries/saed32lvt_tt1p05vn40c.db'
+Loading db file '/users/ugrad2/2012/spring/pooriam/libraries/saed32sram_tt1p05vn40c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'design_top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'riscv_inst/dp_inst/regf_inst/clk': 1523 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated black box outputs. (PWR-428)
+1

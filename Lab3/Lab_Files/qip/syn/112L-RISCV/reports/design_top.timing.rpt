@@ -1,0 +1,61 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : design_top
+Version: J-2014.09-SP4
+Date   : Thu Jun  6 11:35:54 2019
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt1p05vn40c   Library: saed32lvt_tt1p05vn40c
+Wire Load Model Mode: enclosed
+
+  Startpoint: riscv_inst/imem_inst/RAM
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: riscv_inst/dp_inst/A_reg[ALUSrc]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  design_top         ForQA                 saed32lvt_tt1p05vn40c
+  riscv              ForQA                 saed32lvt_tt1p05vn40c
+  datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__
+                     35000                 saed32lvt_tt1p05vn40c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  riscv_inst/imem_inst/RAM/CE (SRAM1RW512x32)             0.00 #     0.00 r
+  riscv_inst/imem_inst/RAM/O[6] (SRAM1RW512x32)           3.41       3.41 r
+  riscv_inst/imem_inst/rdata[6] (instruction_memory)      0.00       3.41 r
+  riscv_inst/U3/Y (INVX0_LVT)                             0.04       3.45 f
+  riscv_inst/U17/Y (AND4X1_LVT)                           0.07       3.52 f
+  riscv_inst/U18/Y (AND3X1_LVT)                           0.05       3.57 f
+  riscv_inst/U24/Y (OA221X1_LVT)                          0.05       3.63 f
+  riscv_inst/U25/Y (OR3X1_LVT)                            0.04       3.66 f
+  riscv_inst/dp_inst/ctrl.alu_src (datapath_AW32_I_ctrl_controller_if__I_dmem_if_memory_if__)
+                                                          0.00       3.66 f
+  riscv_inst/dp_inst/U1960/Y (AO22X1_LVT)                 0.04       3.70 f
+  riscv_inst/dp_inst/A_reg[ALUSrc]/D (DFFX1_LVT)          0.01       3.71 f
+  data arrival time                                                  3.71
+
+  clock clk (rise edge)                                   4.00       4.00
+  clock network delay (ideal)                             0.00       4.00
+  riscv_inst/dp_inst/A_reg[ALUSrc]/CLK (DFFX1_LVT)        0.00       4.00 r
+  library setup time                                     -0.01       3.99
+  data required time                                                 3.99
+  --------------------------------------------------------------------------
+  data required time                                                 3.99
+  data arrival time                                                 -3.71
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.27
+
+
+1
